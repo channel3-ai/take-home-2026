@@ -25,10 +25,25 @@ category_texts = list(VALID_CATEGORIES)
 category_vectors = category_vectorizer.fit_transform(category_texts)
 
 def _find_relevant_categories(product_text: str, top_k: int = 20) -> list[str]:
-    # Finds the top K most relevant categories for a product
+    # Extract key product words (simple but effective)
+    product_words = set(product_text.lower().split())
+    
+    # TF-IDF similarity
     query_vec = category_vectorizer.transform([product_text])
-    similarities = cosine_similarity(query_vec, category_vectors)[0]
-    top_indices = np.argsort(similarities)[-top_k:][::-1]
+    tfidf_scores = cosine_similarity(query_vec, category_vectors)[0]
+    
+    # Exact word match boost
+    word_match_scores = np.zeros(len(category_texts))
+    for i, category in enumerate(category_texts):
+        category_words = set(category.lower().split())
+        # Count overlapping words, normalized by category length
+        overlap = len(product_words & category_words)
+        word_match_scores[i] = overlap / max(len(category_words), 1)
+    
+    # Combine scores (60% TF-IDF, 40% exact matches)
+    combined_scores = 0.55 * tfidf_scores + 0.45 * word_match_scores
+    
+    top_indices = np.argsort(combined_scores)[-top_k:][::-1]
     return [category_texts[i] for i in top_indices]
 
 SYSTEM_PROMPT = """You are a backend data extraction engine. Your task is to extract structured product data from raw HTML of a product detail page.
@@ -111,7 +126,7 @@ async def ingest_all(html_files: list[Path]) -> list[Product]:
     products = await asyncio.gather(*tasks)
     return products
 
-def save_products(products: list[Product], path="final-products.json"):
+def save_products(products: list[Product], path="PRO-DUCTS.json"):
     with open(path, "w") as f:
         json.dump(
             {
