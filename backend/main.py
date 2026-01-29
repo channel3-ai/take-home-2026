@@ -10,15 +10,21 @@ from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
 from bs4 import BeautifulSoup
 
-async def hello_world():
-    class HelloWorldResponse(BaseModel):
-        message: str
-    response = await ai.responses(
-        "gpt-5-nano",
-        [{"role": "system", "content": "You are a helpful assistant that outputs everything in reverse."},
-         {"role": "user", "content": "Say 'hello world'"}],
-        text_format=HelloWorldResponse)
-    logging.info(response.message)
+SYSTEM_PROMPT = """You are a backend data extraction engine. Your task is to extract structured product data from raw HTML of a product detail page.
+You MUST output ONLY valid JSON that conforms exactly to the provided Product schema. All required fields MUST be present. Optional fields may be null if not found.
+Rules:
+- Do NOT invent information.
+- Do NOT guess values that are not explicitly present. 
+- If a field is missing, infer only when it is clearly implied by the page
+- Use the AVAILABLE MEDIA URLs list provided: {media_context} and select up to 8 of the most relevant unique image and video URLs from that list.
+- Prices must be numeric (no currency symbols).
+- Currency must be a 3-letter ISO code (e.g. USD).
+- Extract Variants which represent purchasable configurations (size, color, pack, etc.).
+- Variants should be a list of dictionaries with consistent keys.
+- For category: For category: Read the FULL product context including brand names, find the best single match, then select the EXACT matching path from this list (do not modify or shorten it): {categories_list}.
+- All text (title, description, features) must be clean, human-readable do not use Unicode characters (™, ®, etc.). Replace any escape sequences with proper symbols.
+- Description should be a clean, simple summary (no HTML tags).
+Output ONLY the JSON object, no markdown, no code blocks, no explanations."""
 
 category_vectorizer = TfidfVectorizer(ngram_range=(1, 3), max_features=5000)
 category_texts = list(VALID_CATEGORIES)
@@ -45,22 +51,6 @@ def _find_relevant_categories(product_text: str, top_k: int = 20) -> list[str]:
     
     top_indices = np.argsort(combined_scores)[-top_k:][::-1]
     return [category_texts[i] for i in top_indices]
-
-SYSTEM_PROMPT = """You are a backend data extraction engine. Your task is to extract structured product data from raw HTML of a product detail page.
-You MUST output ONLY valid JSON that conforms exactly to the provided Product schema. All required fields MUST be present. Optional fields may be null if not found.
-Rules:
-- Do NOT invent information.
-- Do NOT guess values that are not explicitly present. 
-- If a field is missing, infer only when it is clearly implied by the page
-- Use the AVAILABLE MEDIA URLs list provided: {media_context} and select up to 8 of the most relevant unique image and video URLs from that list.
-- Prices must be numeric (no currency symbols).
-- Currency must be a 3-letter ISO code (e.g. USD).
-- Extract Variants which represent purchasable configurations (size, color, pack, etc.).
-- Variants should be a list of dictionaries with consistent keys.
-- For category: For category: Read the FULL product context including brand names, find the best single match, then select the EXACT matching path from this list (do not modify or shorten it): {categories_list}.
-- All text (title, description, features) must be clean, human-readable do not use Unicode characters (™, ®, etc.). Replace any escape sequences with proper symbols.
-- Description should be a clean, simple summary (no HTML tags).
-Output ONLY the JSON object, no markdown, no code blocks, no explanations."""
 
 def _clean_html(html: str, max_length: int = 100000) -> str:
     # method to remove scripts, styles, but keeps images
@@ -126,7 +116,7 @@ async def ingest_all(html_files: list[Path]) -> list[Product]:
     products = await asyncio.gather(*tasks)
     return products
 
-def save_products(products: list[Product], path="PRO-DUCTS.json"):
+def save_products(products: list[Product], path="products.json"):
     with open(path, "w") as f:
         json.dump(
             {
