@@ -30,6 +30,9 @@ class Price(BaseModel):
     # If a product is on sale, this is the original price
     compare_at_price: float | None = None
 
+class Variant(BaseModel):
+    attributes: dict[str, str] | None = None
+
 # This is the final product schema that you need to output. 
 # You may add additional models as needed.
 class Product(BaseModel):
@@ -42,4 +45,4 @@ class Product(BaseModel):
     category: Category
     brand: str
     colors: list[str]
-    variants: list[Any] # TODO (@dev): Define variant model
+    variants: list[Variant]
