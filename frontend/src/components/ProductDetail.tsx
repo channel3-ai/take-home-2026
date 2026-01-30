@@ -179,7 +179,7 @@ export default function ProductDetail() {
           )}
 
           {/* Variants */}
-          {product.variants.length > 0 && (
+          {product.variants.length > 1 && (
             <VariantSelector 
               variants={product.variants}
               selectedIndex={selectedVariantIndex}
