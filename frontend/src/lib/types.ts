@@ -8,6 +8,10 @@ export interface Category {
   name: string
 }
 
+export interface Variant {
+  attributes: Record<string, string> | null
+}
+
 export interface Product {
   name: string
   price: Price
@@ -18,5 +22,5 @@ export interface Product {
   category: Category
   brand: string
   colors: string[]
-  variants: unknown[]
+  variants: Variant[]
 }

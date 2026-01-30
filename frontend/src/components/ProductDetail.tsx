@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import { useLocation, Link, useNavigate } from 'react-router-dom'
 import { formatPrice, formatComparePrice } from '@/lib/api'
-import type { Product } from '@/lib/types'
+import type { Product, Variant } from '@/lib/types'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
 import {
@@ -16,6 +16,17 @@ interface LocationState {
   product?: Product
 }
 
+// Check if a string looks like an image URL
+function isImageUrl(value: string): boolean {
+  const imageExtensions = /\.(jpg|jpeg|png|gif|webp|svg)(\?|$)/i
+  return imageExtensions.test(value) || value.includes('/image') || value.includes('cdn')
+}
+
+// Attributes to display as selectable pills
+const PILL_ATTRIBUTES = ['size', 'color']
+// Attributes to hide from display
+const HIDDEN_ATTRIBUTES = ['sku', 'mfr', 'package']
+
 export default function ProductDetail() {
   const location = useLocation()
   const navigate = useNavigate()
@@ -23,6 +34,7 @@ export default function ProductDetail() {
   const product = state?.product
   
   const [selectedColor, setSelectedColor] = useState<string | null>(null)
+  const [selectedVariantIndex, setSelectedVariantIndex] = useState<number | null>(null)
 
   // Set initial selected color when product loads
   useEffect(() => {
@@ -168,16 +180,11 @@ export default function ProductDetail() {
 
           {/* Variants */}
           {product.variants.length > 0 && (
-            <div className="mb-6">
-              <h3 className="text-sm font-medium text-gray-900 mb-3">Variants</h3>
-              <div className="flex flex-wrap gap-2">
-                {product.variants.map((variant, index) => (
-                  <Badge key={index} variant="secondary" className="text-sm py-1 px-3">
-                    {typeof variant === 'object' ? JSON.stringify(variant) : String(variant)}
-                  </Badge>
-                ))}
-              </div>
-            </div>
+            <VariantSelector 
+              variants={product.variants}
+              selectedIndex={selectedVariantIndex}
+              onSelect={setSelectedVariantIndex}
+            />
           )}
 
           {/* Add to Cart Button */}
@@ -213,6 +220,183 @@ export default function ProductDetail() {
           )}
         </div>
       </div>
+    </div>
+  )
+}
+
+// Variant selector component
+interface VariantSelectorProps {
+  variants: Variant[]
+  selectedIndex: number | null
+  onSelect: (index: number) => void
+}
+
+function VariantSelector({ variants, selectedIndex, onSelect }: VariantSelectorProps) {
+  // Extract unique attribute keys across all variants
+  const allAttributes = variants.reduce<Set<string>>((acc, variant) => {
+    if (variant.attributes) {
+      Object.keys(variant.attributes).forEach(key => acc.add(key))
+    }
+    return acc
+  }, new Set())
+
+  // Group variants by displayable attributes (size, color)
+  const displayableAttributes = Array.from(allAttributes).filter(
+    attr => PILL_ATTRIBUTES.includes(attr.toLowerCase())
+  )
+
+  // Get unique values for each displayable attribute
+  const attributeValues = displayableAttributes.reduce<Record<string, string[]>>((acc, attr) => {
+    const values = new Set<string>()
+    variants.forEach(variant => {
+      const value = variant.attributes?.[attr]
+      if (value) values.add(value)
+    })
+    acc[attr] = Array.from(values)
+    return acc
+  }, {})
+
+  // Check if any variant has image URLs
+  const variantImages = variants
+    .map((variant, index) => {
+      if (!variant.attributes) return null
+      const urlAttr = Object.entries(variant.attributes).find(
+        ([key, value]) => key.toLowerCase() === 'url' && isImageUrl(value)
+      )
+      return urlAttr ? { index, url: urlAttr[1] } : null
+    })
+    .filter(Boolean) as { index: number; url: string }[]
+
+  // Get the label for the selected variant
+  const getVariantLabel = (variant: Variant): string => {
+    if (!variant.attributes) return ''
+    const parts: string[] = []
+    PILL_ATTRIBUTES.forEach(attr => {
+      const value = Object.entries(variant.attributes!).find(
+        ([key]) => key.toLowerCase() === attr
+      )?.[1]
+      if (value) parts.push(value)
+    })
+    return parts.join(' / ')
+  }
+
+  return (
+    <div className="mb-6 space-y-4">
+      {/* Size pills */}
+      {attributeValues['size'] && attributeValues['size'].length > 0 && (
+        <div>
+          <h3 className="text-sm font-medium text-gray-900 mb-3">Size</h3>
+          <div className="flex flex-wrap gap-2">
+            {attributeValues['size'].map((size) => {
+              const variantIndex = variants.findIndex(
+                v => v.attributes?.size === size
+              )
+              const isSelected = selectedIndex === variantIndex
+              return (
+                <button
+                  key={size}
+                  onClick={() => onSelect(variantIndex)}
+                  className={`px-4 py-2 text-sm rounded-md border transition-colors ${
+                    isSelected
+                      ? 'border-gray-900 bg-gray-900 text-white'
+                      : 'border-gray-200 hover:border-gray-400 text-gray-700'
+                  }`}
+                >
+                  {size}
+                </button>
+              )
+            })}
+          </div>
+        </div>
+      )}
+
+      {/* Color pills from variants (if different from main colors) */}
+      {attributeValues['color'] && attributeValues['color'].length > 0 && (
+        <div>
+          <h3 className="text-sm font-medium text-gray-900 mb-3">Variant</h3>
+          <div className="flex flex-wrap gap-2">
+            {variants.map((variant, index) => {
+              const label = getVariantLabel(variant)
+              if (!label) return null
+              const isSelected = selectedIndex === index
+              return (
+                <button
+                  key={index}
+                  onClick={() => onSelect(index)}
+                  className={`px-4 py-2 text-sm rounded-md border transition-colors ${
+                    isSelected
+                      ? 'border-gray-900 bg-gray-900 text-white'
+                      : 'border-gray-200 hover:border-gray-400 text-gray-700'
+                  }`}
+                >
+                  {label}
+                </button>
+              )
+            })}
+          </div>
+        </div>
+      )}
+
+      {/* Variant images */}
+      {variantImages.length > 0 && (
+        <div>
+          <h3 className="text-sm font-medium text-gray-900 mb-3">Options</h3>
+          <div className="flex flex-wrap gap-2">
+            {variantImages.map(({ index, url }) => {
+              const isSelected = selectedIndex === index
+              return (
+                <button
+                  key={index}
+                  onClick={() => onSelect(index)}
+                  className={`w-16 h-16 rounded-md border-2 overflow-hidden transition-colors ${
+                    isSelected
+                      ? 'border-gray-900'
+                      : 'border-gray-200 hover:border-gray-400'
+                  }`}
+                >
+                  <img
+                    src={url}
+                    alt={`Variant ${index + 1}`}
+                    className="w-full h-full object-cover"
+                  />
+                </button>
+              )
+            })}
+          </div>
+        </div>
+      )}
+
+      {/* Fallback: Show simple variant pills if no structured attributes */}
+      {displayableAttributes.length === 0 && variantImages.length === 0 && (
+        <div>
+          <h3 className="text-sm font-medium text-gray-900 mb-3">Options</h3>
+          <div className="flex flex-wrap gap-2">
+            {variants.map((variant, index) => {
+              const isSelected = selectedIndex === index
+              // Show a simple label from first non-hidden attribute
+              const label = variant.attributes
+                ? Object.entries(variant.attributes)
+                    .filter(([key]) => !HIDDEN_ATTRIBUTES.includes(key.toLowerCase()))
+                    .map(([, value]) => value)
+                    .join(' / ') || `Option ${index + 1}`
+                : `Option ${index + 1}`
+              return (
+                <button
+                  key={index}
+                  onClick={() => onSelect(index)}
+                  className={`px-4 py-2 text-sm rounded-md border transition-colors ${
+                    isSelected
+                      ? 'border-gray-900 bg-gray-900 text-white'
+                      : 'border-gray-200 hover:border-gray-400 text-gray-700'
+                  }`}
+                >
+                  {label}
+                </button>
+              )
+            })}
+          </div>
+        </div>
+      )}
     </div>
   )
 }
