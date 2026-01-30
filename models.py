@@ -30,6 +30,15 @@ class Price(BaseModel):
     # If a product is on sale, this is the original price
     compare_at_price: float | None = None
 
+class Variant(BaseModel):
+    """Represents a product variant (size, color, fit, etc.)"""
+    variant_type: str  # e.g., "size", "color", "fit", "material"
+    variant_value: str  # e.g., "Large", "Red", "Regular"
+    sku: str | None = None
+    price: Price | None = None  # Optional variant-specific pricing
+    in_stock: bool | None = None
+
+
 # This is the final product schema that you need to output. 
 # You may add additional models as needed.
 class Product(BaseModel):
@@ -42,4 +51,4 @@ class Product(BaseModel):
     category: Category
     brand: str
     colors: list[str]
-    variants: list[Any] # TODO (@dev): Define variant model
+    variants: list[Variant]  # Changed from list[Any]
