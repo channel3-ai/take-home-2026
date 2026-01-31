@@ -29,15 +29,18 @@ export const VariantSelector = ({
               {selectedValue || variants[0]?.variant_value || ''}
             </span>
           </div>
-          {/* Color swatches */}
+          {/* Color swatches - show images if available, otherwise show color */}
           <div className="flex flex-wrap gap-2">
             {variants.map((variant, index) => {
               const isSelected = selectedValue === variant.variant_value;
+              const hasImages = variant.image_urls && variant.image_urls.length > 0;
+              const imageUrl = hasImages ? variant.image_urls[0] : null;
+              
               return (
                 <button
                   key={index}
                   onClick={() => onSelect(variantType, variant.variant_value)}
-                  className="p-0 border-0 bg-transparent cursor-pointer focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-foreground rounded"
+                  className="p-0 border-0 bg-transparent cursor-pointer focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-foreground rounded overflow-hidden"
                   aria-label={`Select ${variant.variant_value}`}
                 >
                   <div
@@ -46,10 +49,32 @@ export const VariantSelector = ({
                         ? 'border-black border-[3px]'
                         : 'border-border hover:border-foreground/50'
                     }`}
-                    style={{
-                      backgroundColor: getColorValue(variant.variant_value),
-                    }}
-                  />
+                    style={
+                      imageUrl
+                        ? {
+                            backgroundImage: `url(${imageUrl})`,
+                            backgroundSize: 'cover',
+                            backgroundPosition: 'center',
+                            backgroundColor: getColorValue(variant.variant_value), // Fallback color
+                          }
+                        : {
+                            backgroundColor: getColorValue(variant.variant_value),
+                          }
+                    }
+                  >
+                    {imageUrl && (
+                      <img
+                        src={imageUrl}
+                        alt={variant.variant_value}
+                        className="w-full h-full object-cover"
+                        onError={(e) => {
+                          // If image fails to load, hide it and show color background
+                          const target = e.target as HTMLImageElement;
+                          target.style.display = 'none';
+                        }}
+                      />
+                    )}
+                  </div>
                 </button>
               );
             })}

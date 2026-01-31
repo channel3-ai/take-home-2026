@@ -37,6 +37,7 @@ class Variant(BaseModel):
     sku: str | None = None
     price: Price | None = None  # Optional variant-specific pricing
     in_stock: bool | None = None
+    image_urls: list[str] | None = None  # Images specific to this variant (for color variants)
 
 
 # This is the final product schema that you need to output. 

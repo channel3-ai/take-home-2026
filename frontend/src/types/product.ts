@@ -10,6 +10,7 @@ export interface Variant {
   sku?: string | null;
   price?: Price | null;
   in_stock?: boolean | null;
+  image_urls?: string[] | null;
 }
 
 export interface Product {

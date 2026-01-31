@@ -34,6 +34,19 @@ const ProductDetailPage = () => {
         }
 
         setProduct(foundProduct);
+        
+        // Set default selected color variant if available
+        if (foundProduct.variants) {
+          const colorVariant = foundProduct.variants.find(
+            (v) => v.variant_type.toLowerCase() === 'color'
+          );
+          if (colorVariant) {
+            setSelectedVariants(prev => ({
+              ...prev,
+              color: colorVariant.variant_value,
+            }));
+          }
+        }
       } catch (err) {
         setError(err instanceof Error ? err.message : 'Failed to load product');
       } finally {
@@ -88,13 +101,34 @@ const ProductDetailPage = () => {
     );
   }
 
-  const images = product.image_urls || [];
+  // Get images based on selected color variant
+  const getDisplayImages = (): string[] => {
+    // Check if a color variant is selected and has images
+    const selectedColorVariant = product.variants?.find(
+      (v) => v.variant_type.toLowerCase() === 'color' && 
+             v.variant_value === selectedVariants.color &&
+             v.image_urls && 
+             v.image_urls.length > 0
+    );
+    
+    // Debug logging
+    if (selectedVariants.color) {
+      console.log('Selected color:', selectedVariants.color);
+      console.log('Found variant:', selectedColorVariant ? selectedColorVariant.variant_value : 'none');
+      console.log('Variant images:', selectedColorVariant?.image_urls?.length || 0);
+    }
+    
+    // If selected color variant has images, use those; otherwise use product images
+    return selectedColorVariant?.image_urls || product.image_urls || [];
+  };
+
+  const images = getDisplayImages();
 
   return (
     <div className="h-screen overflow-hidden">
       <div className="grid grid-cols-2 h-full">
         {/* Left Side - Images */}
-        <div className="overflow-y-auto border-r border-border">
+        <div className="overflow-y-auto border-r border-border flex items-center justify-center" >
           <ProductImageGallery images={images} productName={product.name} />
         </div>
 
