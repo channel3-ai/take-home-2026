@@ -79,6 +79,8 @@ From the project root:
 
 ```bash
 python main.py
+or 
+uv run python main.py
 ```
 
 The API will run at `http://localhost:8000`
