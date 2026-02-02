@@ -25,33 +25,16 @@
     ],
     "video_url": null,
     "category": {
-      "name": "Hardware"
+      "name": "Hardware > Tools"
     },
     "brand": "DeWalt",
     "colors": [
-      "Yellow"
+      "Yellow/Black"
     ],
     "variants": [
       {
         "variant_type": "color",
-        "variant_value": "Yellow",
-        "sku": null,
-        "price": null,
-        "in_stock": null,
-        "image_urls": [
-          "https://cdn-tp6.mozu.com/24645-37138/cms/37138/files/f7b42b30-cf5a-4829-be02-76bf93727867?_mzcb=_1767877756410",
-          "https://cdn-tp6.mozu.com/24645-37138/cms/37138/files/373f3cb5-5ecf-4a57-b7d6-510d8698e977",
-          "https://cdn-tp6.mozu.com/24645-37138/cms/37138/files/1b434a2e-7528-42cc-a489-83177395594b",
-          "https://cdn-tp6.mozu.com/24645-37138/cms/37138/files/028f1d30-dca3-4b44-84ef-40a6f3b149e8",
-          "https://cdn-tp6.mozu.com/24645-37138/cms/37138/files/b9e63a53-01c5-44c6-97e2-9c78a7ed2a10",
-          "https://cdn-tp6.mozu.com/24645-37138/cms/37138/files/f27d0a21-766f-4f84-9927-30cf76b27188",
-          "https://cdn-tp6.mozu.com/24645-37138/cms/37138/files/9e7c188d-d2b8-4217-b5f8-48b29fd445b1",
-          "https://cdn-tp6.mozu.com/24645-37138/cms/37138/files/bb222bcf-a069-4d02-b9d9-f23410f64138"
-        ]
-      },
-      {
-        "variant_type": "size",
-        "variant_value": "1/2 in.",
+        "variant_value": "Yellow/Black",
         "sku": null,
         "price": null,
         "in_stock": null,
@@ -68,7 +51,7 @@
     },
     "description": "- 65% TENCEL\u2122 Lyocell, 35% cotton \r\n- One visible button and one button inside\r\n- Topstitch at waistband\r\n- Side pockets\r\n- Two back pockets with buttoning\r\n",
     "key_features": [
-      "65% TENCEL Lyocell, 35% cotton",
+      "65% TENCEL\u2122 Lyocell, 35% cotton",
       "One visible button and one button inside",
       "Topstitch at waistband",
       "Side pockets",
@@ -76,14 +59,12 @@
     ],
     "image_urls": [
       "https://adaysmarch.centracdn.net/client/dynamic/images/8521_d363c12cd7-miller-cotton-lyocell-iron.jpg",
-      "https://adaysmarch.centracdn.net/client/dynamic/images/8521_228489419c-102805-10_1-full.jpg",
-      "https://adaysmarch.centracdn.net/client/dynamic/images/8521_cfb394d6d7-miller-black-full.jpg",
-      "https://adaysmarch.centracdn.net/client/dynamic/images/8521_bcee82d9ef-102805-20_miller_cotton_lyocell_trousers_oyster3921-full.jpg",
-      "https://adaysmarch.centracdn.net/client/dynamic/images/8521_fcce677c73-102805-60_miller_cotton_lyocell_trousers_olive5097-full.jpg",
-      "https://adaysmarch.centracdn.net/client/dynamic/images/8521_ccb0c3679f-miller-cotton-lyocell-dark-brown-full.jpg",
-      "https://adaysmarch.centracdn.net/client/dynamic/images/8521_963254a1d4-102805-80_miller_cotton_lyocell_trousers_light_khaki3067-full.jpg",
-      "https://adaysmarch.centracdn.net/client/dynamic/images/8521_b24209b41b-102805-50_miller_cotton_lyocell_trousers_iron0841-full.jpg",
-      "https://adaysmarch.centracdn.net/client/dynamic/images/8521_228489419c-102805-10_3-full.jpg"
+      "https://adaysmarch.centracdn.net/client/dynamic/images/8521_228489419c-102805-10_1.jpg",
+      "https://adaysmarch.centracdn.net/client/dynamic/images/8521_613902bd4b-102805-10_2.jpg",
+      "https://adaysmarch.centracdn.net/client/dynamic/images/8521_fdc5336948-102805-10_3.jpg",
+      "https://adaysmarch.centracdn.net/client/dynamic/images/8521_613902bd4b-102805-10_2-full.jpg",
+      "https://adaysmarch.centracdn.net/client/dynamic/images/8521_5fca406238-102805-10_5.jpg",
+      "https://adaysmarch.centracdn.net/client/dynamic/images/8521_c1565318d9-102805-10_4.jpg"
     ],
     "video_url": "https://adaysmarch.centracdn.net/client/dynamic/attributes/531/miller_2x3.mp4",
     "category": {
@@ -113,8 +94,12 @@
         "in_stock": true,
         "image_urls": [
           "https://adaysmarch.centracdn.net/client/dynamic/images/8521_d363c12cd7-miller-cotton-lyocell-iron.jpg",
+          "https://adaysmarch.centracdn.net/client/dynamic/images/8521_228489419c-102805-10_1.jpg",
+          "https://adaysmarch.centracdn.net/client/dynamic/images/8521_613902bd4b-102805-10_2.jpg",
+          "https://adaysmarch.centracdn.net/client/dynamic/images/8521_fdc5336948-102805-10_3.jpg",
           "https://adaysmarch.centracdn.net/client/dynamic/images/8521_613902bd4b-102805-10_2-full.jpg",
-          "https://adaysmarch.centracdn.net/client/dynamic/images/8521_080eaeda60-102805-10_100-full.jpg"
+          "https://adaysmarch.centracdn.net/client/dynamic/images/8521_5fca406238-102805-10_5.jpg",
+          "https://adaysmarch.centracdn.net/client/dynamic/images/8521_c1565318d9-102805-10_4.jpg"
         ]
       },
       {
@@ -127,9 +112,7 @@
           "compare_at_price": null
         },
         "in_stock": true,
-        "image_urls": [
-          "https://adaysmarch.centracdn.net/client/dynamic/images/8521_228489419c-102805-10_1-full.jpg"
-        ]
+        "image_urls": []
       },
       {
         "variant_type": "color",
@@ -141,57 +124,23 @@
           "compare_at_price": null
         },
         "in_stock": true,
-        "image_urls": [
-          "https://adaysmarch.centracdn.net/client/dynamic/images/8521_bcee82d9ef-102805-20_miller_cotton_lyocell_trousers_oyster3921-full.jpg"
-        ]
+        "image_urls": []
       },
       {
         "variant_type": "color",
         "variant_value": "Olive",
-        "sku": "10280530",
+        "sku": "10280560",
         "price": {
-          "price": 170.0,
+          "price": 136.0,
           "currency": "USD",
-          "compare_at_price": null
+          "compare_at_price": 170.0
         },
         "in_stock": true,
-        "image_urls": [
-          "https://adaysmarch.centracdn.net/client/dynamic/images/8521_fcce677c73-102805-60_miller_cotton_lyocell_trousers_olive5097-full.jpg",
-          "https://adaysmarch.centracdn.net/client/dynamic/images/8521_679a844de6-102805-60_miller_cotton_lyocell_trousers_olive5133-full.jpg"
-        ]
+        "image_urls": []
       },
       {
         "variant_type": "color",
         "variant_value": "Dark Brown",
-        "sku": "10280540",
-        "price": {
-          "price": 170.0,
-          "currency": "USD",
-          "compare_at_price": null
-        },
-        "in_stock": true,
-        "image_urls": [
-          "https://adaysmarch.centracdn.net/client/dynamic/images/8521_ccb0c3679f-miller-cotton-lyocell-dark-brown-full.jpg",
-          "https://adaysmarch.centracdn.net/client/dynamic/images/8521_9d9c6cc23c-102805-70_miller_cotton_lyocell_trousers_dark_brown5071-full.jpg"
-        ]
-      },
-      {
-        "variant_type": "color",
-        "variant_value": "Black",
-        "sku": "10280560",
-        "price": {
-          "price": 170.0,
-          "currency": "USD",
-          "compare_at_price": null
-        },
-        "in_stock": true,
-        "image_urls": [
-          "https://adaysmarch.centracdn.net/client/dynamic/images/8521_cfb394d6d7-miller-black-full.jpg"
-        ]
-      },
-      {
-        "variant_type": "color",
-        "variant_value": "Khaki",
         "sku": "10280570",
         "price": {
           "price": 170.0,
@@ -199,23 +148,43 @@
           "compare_at_price": null
         },
         "in_stock": true,
-        "image_urls": [
-          "https://adaysmarch.centracdn.net/client/dynamic/images/8521_963254a1d4-102805-80_miller_cotton_lyocell_trousers_light_khaki3067-full.jpg"
-        ]
+        "image_urls": []
       },
       {
         "variant_type": "color",
-        "variant_value": "Light Khaki",
-        "sku": "10280580",
+        "variant_value": "Black",
+        "sku": "10280530",
         "price": {
           "price": 170.0,
           "currency": "USD",
           "compare_at_price": null
         },
         "in_stock": true,
-        "image_urls": [
-          "https://adaysmarch.centracdn.net/client/dynamic/images/8521_963254a1d4-102805-80_miller_cotton_lyocell_trousers_light_khaki3067-full.jpg"
-        ]
+        "image_urls": []
+      },
+      {
+        "variant_type": "color",
+        "variant_value": "Khaki",
+        "sku": "10280540",
+        "price": {
+          "price": 170.0,
+          "currency": "USD",
+          "compare_at_price": null
+        },
+        "in_stock": true,
+        "image_urls": []
+      },
+      {
+        "variant_type": "color",
+        "variant_value": "Light Khaki",
+        "sku": "10280580",
+        "price": {
+          "price": 136.0,
+          "currency": "USD",
+          "compare_at_price": 170.0
+        },
+        "in_stock": true,
+        "image_urls": []
       }
     ]
   },
@@ -229,13 +198,14 @@
     "description": "The Pilar is a shining light atop a tall, slender terrazzo base, emitting a warm glow from its beacon-like fabric-wrapped shade. If you're looking for that statement piece, you're in the right place\u2014the Pilar stands four and a half feet tall, shining light across your home.",
     "key_features": [
       "Terrazzo base with a fabric shade",
-      "E26 7W LED bulb included"
+      "E26 7W LED bulb included",
+      "Cord length: 9'"
     ],
     "image_urls": [
-      "https://cdn-images.article.com/products/SKU25289/2890x1500/image154290.jpg",
-      "https://cdn-images.article.com/products/SKU25289/2890x1500/image154289.jpg",
-      "https://cdn-images.article.com/products/SKU25289/2890x1500/image154288.jpg",
       "https://cdn-images.article.com/products/SKU25289/2890x1500/image154287.jpg",
+      "https://cdn-images.article.com/products/SKU25289/2890x1500/image154288.jpg",
+      "https://cdn-images.article.com/products/SKU25289/2890x1500/image154289.jpg",
+      "https://cdn-images.article.com/products/SKU25289/2890x1500/image154290.jpg",
       "https://cdn-images.article.com/products/SKU25289/2890x1500/image154291.jpg",
       "https://cdn-images.article.com/products/SKU25289/2890x1500/image154292.jpg",
       "https://cdn-images.article.com/products/SKU25289/2890x1500/image154293.jpg",
@@ -255,25 +225,10 @@
       {
         "variant_type": "color",
         "variant_value": "White Terrazzo",
-        "sku": "SKU25289",
-        "price": {
-          "price": 349.0,
-          "currency": "USD",
-          "compare_at_price": null
-        },
+        "sku": null,
+        "price": null,
         "in_stock": null,
-        "image_urls": [
-          "https://cdn-images.article.com/products/SKU25289/2890x1500/image154296.jpg",
-          "https://cdn-images.article.com/products/SKU25289/2890x1500/image154292.jpg",
-          "https://cdn-images.article.com/products/SKU25289/2890x1500/image154294.jpg",
-          "https://cdn-images.article.com/products/SKU25289/2890x1500/image154293.jpg",
-          "https://cdn-images.article.com/products/SKU25289/2890x1500/image154295.jpg",
-          "https://cdn-images.article.com/products/SKU25289/2890x1500/image154291.jpg",
-          "https://cdn-images.article.com/products/SKU25289/2890x1500/image154287.jpg",
-          "https://cdn-images.article.com/products/SKU25289/2890x1500/image154288.jpg",
-          "https://cdn-images.article.com/products/SKU25289/2890x1500/image154290.jpg",
-          "https://cdn-images.article.com/products/SKU25289/2890x1500/image154289.jpg"
-        ]
+        "image_urls": []
       }
     ]
   },
@@ -282,40 +237,24 @@
     "price": {
       "price": 29.95,
       "currency": "USD",
-      "compare_at_price": 29.95
+      "compare_at_price": null
     },
     "description": "Made of soft cotton that resists wrinkles, shrinking, fading and pilling, our resilient henley keeps its shape wash after wash.",
     "key_features": [
-      "100% jersey-knit cotton",
-      "Ribbed trim is 90% cotton/10% Lycra\u00ae elastane",
-      "Double-needle stitching",
-      "Built for comfort, the fabric gets softer with washing",
-      "Machine wash and dry",
-      "Tagless printed label for comfort"
+      "Made of soft cotton that resists wrinkles, shrinking, fading and pilling.",
+      "Unshrinkable Carefree fabric that keeps its shape wash after wash.",
+      "Traditional Fit: Relaxed through the chest, sleeve and waist.",
+      "Durable double-needle stitching.",
+      "Tagless printed label for comfort.",
+      "Soft jersey-knit taping on neck seam.",
+      "Imported."
     ],
     "image_urls": [
-      "https://cdni.llbean.net/is/image/wim/224626_1176_41?hei=1095&wid=950&resMode=sharp2&defaultImage=llbprod/224626_0_44",
-      "https://cdni.llbean.net/is/image/wim/224626_1176_44?hei=1095&wid=950&resMode=sharp2&defaultImage=llbprod/224626_0_44",
-      "https://cdni.llbean.net/is/image/wim/224626_1176_45?hei=1095&wid=950&resMode=sharp2&defaultImage=llbprod/224626_0_44",
-      "https://cdni.llbean.net/is/image/wim/224626_1176_46?hei=1095&wid=950&resMode=sharp2&defaultImage=llbprod/224626_0_44",
-      "https://cdni.llbean.net/is/image/wim/224626_1176_47?hei=1095&wid=950&resMode=sharp2&defaultImage=llbprod/224626_0_44",
-      "https://cdni.llbean.net/is/image/wim/224626_1176_48?hei=1095&wid=950&resMode=sharp2&defaultImage=llbprod/224626_0_44",
-      "https://cdni.llbean.net/is/image/wim/224626_0_44?hei=1095&wid=950&resMode=sharp2&defaultImage=llbprod/224626_0_44",
-      "https://cdni.llbean.net/is/image/wim/224626_0_45?hei=1095&wid=950&resMode=sharp2&defaultImage=llbprod/224626_0_44",
-      "https://cdni.llbean.net/is/image/wim/224626_0_46?hei=1095&wid=950&resMode=sharp2&defaultImage=llbprod/224626_0_44",
-      "https://cdni.llbean.net/is/image/wim/224626_0_47?hei=1095&wid=950&resMode=sharp2&defaultImage=llbprod/224626_0_44",
-      "https://cdni.llbean.net/is/image/wim/224626_0_48?hei=1095&wid=950&resMode=sharp2&defaultImage=llbprod/224626_0_44",
-      "https://cdni.llbean.net/is/image/wim/224626_1_41?wid=65&defaultImage=llbstage/A0211793",
-      "https://cdni.llbean.net/is/image/wim/224626_1176_41?wid=65&defaultImage=llbstage/A0211793",
-      "https://cdni.llbean.net/is/image/wim/224626_36814_41?wid=65&defaultImage=llbstage/A0211793",
-      "https://cdni.llbean.net/is/image/wim/224626_1207_41?wid=65&defaultImage=llbstage/A0211793",
-      "https://cdni.llbean.net/is/image/wim/224626_38221_41?wid=65&defaultImage=llbstage/A0211793",
-      "https://cdni.llbean.net/is/image/wim/224626_292_41?wid=65&defaultImage=llbstage/A0211793",
-      "https://cdni.llbean.net/is/image/wim/224626_464_41?wid=65&defaultImage=llbstage/A0211793"
+      "https://cdni.llbean.net/is/image/wim/224626_0_44"
     ],
     "video_url": null,
     "category": {
-      "name": "Apparel & Accessories"
+      "name": "Apparel & Accessories > Clothing"
     },
     "brand": "L.L.Bean",
     "colors": [
@@ -333,7 +272,7 @@
         "variant_value": "Black",
         "sku": null,
         "price": null,
-        "in_stock": null,
+        "in_stock": true,
         "image_urls": [
           "https://cdni.llbean.net/is/image/wim/224626_1_41?wid=65&defaultImage=llbstage/A0211793"
         ]
@@ -343,7 +282,7 @@
         "variant_value": "Charcoal Heather",
         "sku": null,
         "price": null,
-        "in_stock": null,
+        "in_stock": true,
         "image_urls": [
           "https://cdni.llbean.net/is/image/wim/224626_1176_41?wid=65&defaultImage=llbstage/A0211793"
         ]
@@ -353,7 +292,7 @@
         "variant_value": "Delta Blue",
         "sku": null,
         "price": null,
-        "in_stock": null,
+        "in_stock": true,
         "image_urls": [
           "https://cdni.llbean.net/is/image/wim/224626_36814_41?wid=65&defaultImage=llbstage/A0211793"
         ]
@@ -363,7 +302,7 @@
         "variant_value": "Gray Heather",
         "sku": null,
         "price": null,
-        "in_stock": null,
+        "in_stock": true,
         "image_urls": [
           "https://cdni.llbean.net/is/image/wim/224626_1207_41?wid=65&defaultImage=llbstage/A0211793"
         ]
@@ -373,7 +312,7 @@
         "variant_value": "Navy Blue",
         "sku": null,
         "price": null,
-        "in_stock": null,
+        "in_stock": true,
         "image_urls": [
           "https://cdni.llbean.net/is/image/wim/224626_38221_41?wid=65&defaultImage=llbstage/A0211793"
         ]
@@ -383,7 +322,7 @@
         "variant_value": "Soft Spruce",
         "sku": null,
         "price": null,
-        "in_stock": null,
+        "in_stock": true,
         "image_urls": [
           "https://cdni.llbean.net/is/image/wim/224626_292_41?wid=65&defaultImage=llbstage/A0211793"
         ]
@@ -393,7 +332,7 @@
         "variant_value": "White",
         "sku": null,
         "price": null,
-        "in_stock": null,
+        "in_stock": true,
         "image_urls": [
           "https://cdni.llbean.net/is/image/wim/224626_464_41?wid=65&defaultImage=llbstage/A0211793"
         ]
@@ -404,7 +343,7 @@
         "sku": null,
         "price": null,
         "in_stock": null,
-        "image_urls": []
+        "image_urls": null
       },
       {
         "variant_type": "size",
@@ -412,7 +351,7 @@
         "sku": null,
         "price": null,
         "in_stock": null,
-        "image_urls": []
+        "image_urls": null
       },
       {
         "variant_type": "size",
@@ -420,7 +359,7 @@
         "sku": null,
         "price": null,
         "in_stock": null,
-        "image_urls": []
+        "image_urls": null
       },
       {
         "variant_type": "size",
@@ -428,7 +367,7 @@
         "sku": null,
         "price": null,
         "in_stock": null,
-        "image_urls": []
+        "image_urls": null
       },
       {
         "variant_type": "size",
@@ -436,7 +375,7 @@
         "sku": null,
         "price": null,
         "in_stock": null,
-        "image_urls": []
+        "image_urls": null
       },
       {
         "variant_type": "size",
@@ -444,31 +383,7 @@
         "sku": null,
         "price": null,
         "in_stock": null,
-        "image_urls": []
-      },
-      {
-        "variant_type": "item",
-        "variant_value": "Regular",
-        "sku": null,
-        "price": null,
-        "in_stock": null,
-        "image_urls": []
-      },
-      {
-        "variant_type": "item",
-        "variant_value": "Tall",
-        "sku": null,
-        "price": null,
-        "in_stock": null,
-        "image_urls": []
-      },
-      {
-        "variant_type": "fit",
-        "variant_value": "Traditional Fit",
-        "sku": null,
-        "price": null,
-        "in_stock": null,
-        "image_urls": []
+        "image_urls": null
       }
     ]
   },
@@ -485,19 +400,17 @@
       "Nike Air unit provides lightweight cushioning.",
       "Rubber outsole with classic pivot circles delivers traction and durability.",
       "Low-cut silhouette for a clean, streamlined look.",
-      "Padded collar for soft, comfortable fit."
+      "Padded collar.",
+      "Foam midsole."
     ],
     "image_urls": [
-      "https://static.nike.com/a/images/t_web_pdp_535_v2/f_auto,u_9ddf04c7-2a9a-4d76-add1-d15af8f0263d,c_scale,fl_relative,w_1.0,h_1.0,fl_layer_apply/6a4d2051-1fee-4ce0-aba7-5de42641dae2/NIKE+AIR+FORCE+1+%2707+LV8.png",
-      "https://static.nike.com/a/images/t_PDP_1728_v1/f_auto,q_auto:eco/6888cdd1-346f-4136-a14b-7412f920419c/NIKE+AIR+FORCE+1+%2707+LV8.png",
-      "https://static.nike.com/a/images/t_PDP_1728_v1/f_auto,q_auto:eco/4fb11077-60ab-45e6-b6a7-80b378a1fcb8/NIKE+AIR+FORCE+1+%2707+LV8.png",
-      "https://static.nike.com/a/images/t_PDP_144_v1/f_auto,q_auto:eco/c90f7949-b685-485e-8602-23f1d079cd3a/AIR+FORCE+1+%2707+WB.png",
-      "https://static.nike.com/a/images/t_PDP_144_v1/f_auto,q_auto:eco/057c2bbd-d065-44eb-913f-51dd4f98d680/AIR+FORCE+1+%2707.png",
-      "https://static.nike.com/a/images/t_PDP_144_v1/f_auto,q_auto:eco/5daa00d9-afae-4125-a95c-fc71923b81c3/AIR+FORCE+1+%2707+LV8.png",
-      "https://static.nike.com/a/images/t_PDP_144_v1/f_auto,q_auto:eco/9cbb1d44-4e63-4a22-88ba-8cdbbe0d96e3/AIR+FORCE+1+%2707.png",
-      "https://static.nike.com/a/images/t_PDP_144_v1/f_auto,q_auto:eco/3f1739a7-8ef3-45b0-80e0-7d3ab98f4a33/NIKE+AIR+FORCE+1+%2707+LV8.png"
+      "https://static.nike.com/a/images/t_PDP_144_v1/f_auto,q_auto:eco/6888cdd1-346f-4136-a14b-7412f920419c/NIKE+AIR+FORCE+1+%2707+LV8.png",
+      "https://static.nike.com/a/images/t_PDP_144_v1/f_auto,q_auto:eco/4fb11077-60ab-45e6-b6a7-80b378a1fcb8/NIKE+AIR+FORCE+1+%2707+LV8.png",
+      "https://static.nike.com/a/images/t_web_pdp_936_v2/f_auto,u_9ddf04c7-2a9a-4d76-add1-d15af8f0263d,c_scale,fl_relative,w_1.0,h_1.0,fl_layer_apply/6a4d2051-1fee-4ce0-aba7-5de42641dae2/NIKE+AIR+FORCE+1+%2707+LV8.png",
+      "https://static.nike.com/a/images/t_default/u_9ddf04c7-2a9a-4d76-add1-d15af8f0263d,c_scale,fl_relative,w_1.0,h_1.0,fl_layer_apply/057c2bbd-d065-44eb-913f-51dd4f98d680/AIR+FORCE+1+%2707.png",
+      "https://static.nike.com/a/images/t_default/u_9ddf04c7-2a9a-4d76-add1-d15af8f0263d/c_scale,fl_relative,w_1.0,h_1.0,fl_layer_apply/d6d2266d-0fa9-4f34-bf74-6528c9a0945f/NIKE+AIR+FORCE+1+%2707+LV8.png"
     ],
-    "video_url": "https://shortformvideo.nike.com/a/videos/a91adb2a-77f4-4e15-811b-4847a3768ac0/video.mp4",
+    "video_url": null,
     "category": {
       "name": "Apparel & Accessories > Shoes"
     },
@@ -506,284 +419,212 @@
       "White/Pure Platinum/Team Red/Obsidian",
       "Phantom/College Grey/Team Red/Black",
       "Black/Black",
-      "Flax/Gum Light Brown/Black/Wheat",
       "Wolf Grey/Black/Wolf Grey",
-      "White/White",
-      "White/Black"
+      "Black/White",
+      "Flax/Gum Light Brown/Black/Wheat",
+      "White/Black",
+      "White/White"
     ],
     "variants": [
       {
         "variant_type": "color",
         "variant_value": "White/Pure Platinum/Team Red/Obsidian",
-        "sku": "IO2077-100",
-        "price": {
-          "price": 76.99,
-          "currency": "GBP",
-          "compare_at_price": 109.99
-        },
-        "in_stock": true,
-        "image_urls": [
-          "https://static.nike.com/a/images/t_PDP_1728_v1/f_auto,q_auto:eco/6888cdd1-346f-4136-a14b-7412f920419c/NIKE+AIR+FORCE+1+%2707+LV8.png",
-          "https://static.nike.com/a/images/t_PDP_1728_v1/f_auto,q_auto:eco/4fb11077-60ab-45e6-b6a7-80b378a1fcb8/NIKE+AIR+FORCE+1+%2707+LV8.png"
-        ]
+        "sku": null,
+        "price": null,
+        "in_stock": null,
+        "image_urls": []
       },
       {
         "variant_type": "color",
         "variant_value": "Phantom/College Grey/Team Red/Black",
-        "sku": "IO2077-030",
-        "price": {
-          "price": 76.99,
-          "currency": "GBP",
-          "compare_at_price": 109.99
-        },
-        "in_stock": true,
-        "image_urls": [
-          "https://static.nike.com/a/images/t_PDP_1728_v1/f_auto,q_auto:eco/e7213e98-fd6d-42b1-b1fd-2edaa0162b04/NIKE+AIR+FORCE+1+%2707+LV8.png",
-          "https://static.nike.com/a/images/t_PDP_1728_v1/f_auto,q_auto:eco/d6d2266d-0fa9-4f34-bf74-6528c9a0945f/NIKE+AIR+FORCE+1+%2707+LV8.png"
-        ]
+        "sku": null,
+        "price": null,
+        "in_stock": null,
+        "image_urls": []
       },
       {
         "variant_type": "color",
         "variant_value": "Black/Black",
-        "sku": "CJ9179-001",
-        "price": {
-          "price": 76.99,
-          "currency": "GBP",
-          "compare_at_price": 109.99
-        },
-        "in_stock": true,
-        "image_urls": [
-          "https://static.nike.com/a/images/t_PDP_144_v1/f_auto,q_auto:eco/c90f7949-b685-485e-8602-23f1d079cd3a/AIR+FORCE+1+%2707+WB.png",
-          "https://static.nike.com/a/images/t_PDP_144_v1/f_auto,q_auto:eco/1ab7d787-2e8a-4118-9e12-f59ca49a4dbf/AIR+FORCE+1+%2707+WB.png"
-        ]
-      },
-      {
-        "variant_type": "color",
-        "variant_value": "Flax/Gum Light Brown/Black/Wheat",
-        "sku": "CJ9179-200",
-        "price": {
-          "price": 76.99,
-          "currency": "GBP",
-          "compare_at_price": 109.99
-        },
-        "in_stock": true,
-        "image_urls": [
-          "https://static.nike.com/a/images/t_PDP_144_v1/f_auto,q_auto:eco/c317d6c0-4d6f-40eb-a982-af179264663c/NIKE+AIR+FORCE+1+%2707+LV8.png",
-          "https://static.nike.com/a/images/t_PDP_144_v1/f_auto,q_auto:eco/057c2bbd-d065-44eb-913f-51dd4f98d680/AIR+FORCE+1+%2707.png"
-        ]
+        "sku": null,
+        "price": null,
+        "in_stock": null,
+        "image_urls": []
       },
       {
         "variant_type": "color",
         "variant_value": "Wolf Grey/Black/Wolf Grey",
-        "sku": "CJ9179-002",
-        "price": {
-          "price": 76.99,
-          "currency": "GBP",
-          "compare_at_price": 109.99
-        },
-        "in_stock": true,
-        "image_urls": [
-          "https://static.nike.com/a/images/t_PDP_144_v1/f_auto,q_auto:eco/c90f7949-b685-485e-8602-23f1d079cd3a/AIR+FORCE+1+%2707+WB.png",
-          "https://static.nike.com/a/images/t_PDP_144_v1/f_auto,q_auto:eco/2bdb6be4-4ea4-4d5a-ae1d-d8a696a6a2f0/AIR+FORCE+1+%2707+WB.png"
-        ]
+        "sku": null,
+        "price": null,
+        "in_stock": null,
+        "image_urls": []
       },
       {
         "variant_type": "color",
         "variant_value": "Black/White",
-        "sku": "CW2288-002",
-        "price": {
-          "price": 109.99,
-          "currency": "GBP",
-          "compare_at_price": 109.99
-        },
-        "in_stock": true,
-        "image_urls": [
-          "https://static.nike.com/a/images/t_PDP_144_v1/f_auto,q_auto:eco/8d0d7870-2a3a-4118-9fdb-7f1f9a2d1a2a/AIR+FORCE+1+%2707+LV8.png",
-          "https://static.nike.com/a/images/t_PDP_144_v1/f_auto,q_auto:eco/5daa00d9-afae-4125-a95c-fc71923b81c3/AIR+FORCE+1+%2707+LV8.png"
-        ]
+        "sku": null,
+        "price": null,
+        "in_stock": null,
+        "image_urls": []
+      },
+      {
+        "variant_type": "color",
+        "variant_value": "Flax/Gum Light Brown/Black/Wheat",
+        "sku": null,
+        "price": null,
+        "in_stock": null,
+        "image_urls": []
+      },
+      {
+        "variant_type": "color",
+        "variant_value": "White/Black",
+        "sku": null,
+        "price": null,
+        "in_stock": null,
+        "image_urls": []
       },
       {
         "variant_type": "color",
         "variant_value": "White/White",
-        "sku": "CW2288-111",
-        "price": {
-          "price": 109.99,
-          "currency": "GBP",
-          "compare_at_price": 109.99
-        },
-        "in_stock": true,
-        "image_urls": [
-          "https://static.nike.com/a/images/t_PDP_144_v1/f_auto,q_auto:eco/012378b0-2e16-4774-97ed-547c1d16d25a/AIR+FORCE+1+%2707+LV8.png",
-          "https://static.nike.com/a/images/t_PDP_144_v1/f_auto,q_auto:eco/4f37fca8-6bce-43ed-a26b-b96e95a48887/NIKE+AIR+FORCE+1+%2707+LV8.png"
-        ]
-      },
-      {
-        "variant_type": "size",
-        "variant_value": "3.5 (UK 3)",
-        "sku": "IO2077-100-Size3.5",
+        "sku": null,
         "price": null,
-        "in_stock": false,
+        "in_stock": null,
         "image_urls": []
       },
       {
         "variant_type": "size",
-        "variant_value": "4 (UK 3.5)",
-        "sku": "IO2077-100-Size4",
+        "variant_value": "5",
+        "sku": null,
         "price": null,
-        "in_stock": false,
-        "image_urls": []
+        "in_stock": null,
+        "image_urls": null
       },
       {
         "variant_type": "size",
-        "variant_value": "4.5 (UK 4)",
-        "sku": "IO2077-100-Size4.5",
+        "variant_value": "6",
+        "sku": null,
         "price": null,
-        "in_stock": false,
-        "image_urls": []
+        "in_stock": null,
+        "image_urls": null
       },
       {
         "variant_type": "size",
-        "variant_value": "5 (UK 4.5)",
-        "sku": "IO2077-100-Size5",
+        "variant_value": "6.5",
+        "sku": null,
         "price": null,
-        "in_stock": false,
-        "image_urls": []
+        "in_stock": null,
+        "image_urls": null
       },
       {
         "variant_type": "size",
-        "variant_value": "5.5 (UK 5)",
-        "sku": "IO2077-100-Size5.5",
+        "variant_value": "7",
+        "sku": null,
         "price": null,
-        "in_stock": false,
-        "image_urls": []
+        "in_stock": null,
+        "image_urls": null
       },
       {
         "variant_type": "size",
-        "variant_value": "6 (UK 5.5)",
-        "sku": "IO2077-100-Size6",
+        "variant_value": "7.5",
+        "sku": null,
         "price": null,
-        "in_stock": false,
-        "image_urls": []
+        "in_stock": null,
+        "image_urls": null
       },
       {
         "variant_type": "size",
-        "variant_value": "6.5 (UK 6)",
-        "sku": "IO2077-100-Size6.5",
+        "variant_value": "8",
+        "sku": null,
         "price": null,
-        "in_stock": false,
-        "image_urls": []
+        "in_stock": null,
+        "image_urls": null
       },
       {
         "variant_type": "size",
-        "variant_value": "7 (UK 6.5)",
-        "sku": "IO2077-100-Size7",
+        "variant_value": "8.5",
+        "sku": null,
         "price": null,
-        "in_stock": false,
-        "image_urls": []
+        "in_stock": null,
+        "image_urls": null
       },
       {
         "variant_type": "size",
-        "variant_value": "7.5 (UK 7)",
-        "sku": "IO2077-100-Size7.5",
+        "variant_value": "9",
+        "sku": null,
         "price": null,
-        "in_stock": false,
-        "image_urls": []
+        "in_stock": null,
+        "image_urls": null
       },
       {
         "variant_type": "size",
-        "variant_value": "8 (UK 7.5)",
-        "sku": "IO2077-100-Size8",
+        "variant_value": "9.5",
+        "sku": null,
         "price": null,
-        "in_stock": false,
-        "image_urls": []
+        "in_stock": null,
+        "image_urls": null
       },
       {
         "variant_type": "size",
-        "variant_value": "8.5 (UK 8)",
-        "sku": "IO2077-100-Size8.5",
+        "variant_value": "10",
+        "sku": null,
         "price": null,
-        "in_stock": false,
-        "image_urls": []
+        "in_stock": null,
+        "image_urls": null
       },
       {
         "variant_type": "size",
-        "variant_value": "9 (UK 8.5)",
-        "sku": "IO2077-100-Size9",
+        "variant_value": "10.5",
+        "sku": null,
         "price": null,
-        "in_stock": false,
-        "image_urls": []
+        "in_stock": null,
+        "image_urls": null
       },
       {
         "variant_type": "size",
-        "variant_value": "9.5 (UK 9)",
-        "sku": "IO2077-100-Size9.5",
+        "variant_value": "11",
+        "sku": null,
         "price": null,
-        "in_stock": false,
-        "image_urls": []
+        "in_stock": null,
+        "image_urls": null
       },
       {
         "variant_type": "size",
-        "variant_value": "10 (UK 9)",
-        "sku": "IO2077-100-Size10",
+        "variant_value": "11.5",
+        "sku": null,
         "price": null,
-        "in_stock": false,
-        "image_urls": []
+        "in_stock": null,
+        "image_urls": null
       },
       {
         "variant_type": "size",
-        "variant_value": "10.5 (UK 9.5)",
-        "sku": "IO2077-100-Size10.5",
+        "variant_value": "12",
+        "sku": null,
         "price": null,
-        "in_stock": false,
-        "image_urls": []
+        "in_stock": null,
+        "image_urls": null
       },
       {
         "variant_type": "size",
-        "variant_value": "11 (UK 10)",
-        "sku": "IO2077-100-Size11",
+        "variant_value": "12.5",
+        "sku": null,
         "price": null,
-        "in_stock": false,
-        "image_urls": []
+        "in_stock": null,
+        "image_urls": null
       },
       {
         "variant_type": "size",
-        "variant_value": "11.5 (UK 10.5)",
-        "sku": "IO2077-100-Size11.5",
+        "variant_value": "13",
+        "sku": null,
         "price": null,
-        "in_stock": false,
-        "image_urls": []
+        "in_stock": null,
+        "image_urls": null
       },
       {
         "variant_type": "size",
-        "variant_value": "12 (UK 11)",
-        "sku": "IO2077-100-Size12",
+        "variant_value": "14",
+        "sku": null,
         "price": null,
-        "in_stock": false,
-        "image_urls": []
-      },
-      {
-        "variant_type": "size",
-        "variant_value": "12.5 (UK 11.5)",
-        "sku": "IO2077-100-Size12.5",
-        "price": null,
-        "in_stock": false,
-        "image_urls": []
-      },
-      {
-        "variant_type": "size",
-        "variant_value": "13 (UK 12)",
-        "sku": "IO2077-100-Size13",
-        "price": null,
-        "in_stock": false,
-        "image_urls": []
-      },
-      {
-        "variant_type": "size",
-        "variant_value": "14 (UK 13)",
-        "sku": "IO2077-100-Size14",
-        "price": null,
-        "in_stock": false,
-        "image_urls": []
+        "in_stock": null,
+        "image_urls": null
       }
     ]
   }

@@ -11,7 +11,24 @@ interface ProductCardProps {
 
 export const ProductCard = ({ product, index }: ProductCardProps) => {
   const productId = getProductId(product, index);
-  const imageUrl = product.image_urls?.[0] || '';
+  
+  // Get image from product level, or fall back to first color variant's images
+  const getImageUrl = (): string => {
+    if (product.image_urls && product.image_urls.length > 0) {
+      return product.image_urls[0];
+    }
+    
+    // Fall back to first color variant's first image
+    const firstColorVariant = product.variants?.find(
+      (v) => v.variant_type?.toLowerCase() === 'color' && 
+             v.image_urls && 
+             v.image_urls.length > 0
+    );
+    
+    return firstColorVariant?.image_urls?.[0] || '';
+  };
+  
+  const imageUrl = getImageUrl();
 
   return (
     <div>

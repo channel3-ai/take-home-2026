@@ -29,8 +29,10 @@ SYSTEM_MESSAGE = (
     "You are a product data extraction expert. Extract structured product information "
     "from e-commerce pages. CRITICAL: For the category field, you MUST use an EXACT "
     "category name from Google Product Taxonomy that exists in the taxonomy file. "
-    "The category must match exactly - character for character. Do not add subcategories "
-    "that don't exist. If you're unsure, use a more general category that definitely exists. "
+    "The category must match exactly - character for character, including the full hierarchical path "
+    "with '>' separators (e.g., 'Hardware > Tools', NOT just 'Tools'). "
+    "Categories MUST include ALL parent categories separated by ' > '. "
+    "Do not add subcategories that don't exist. If you're unsure, use a more general category that definitely exists. "
     "Do not invent new category paths. Ensure all required fields are populated."
 )
 
@@ -44,34 +46,115 @@ Extract:
 - compare_at_price: Original price if on sale (optional)
 - description: Full product description
 - key_features: List of key features/benefits (3-10 items)
-- image_urls: ALL product images from <img> tags, JSON-LD, __NEXT_DATA__, __SERVER_DATA__
-  * Extract ALL images recursively from nested JSON (colorwayImages, props.pageProps, selectedProduct, productGroups, etc.)
-  * Prefer highest resolution (full/max over thumb/mini/square)
-  * EXCLUDE: SVG, icons, logos, shipping images, UI elements
+- image_urls: ALL product images from <img> tags, JSON-LD, __NEXT_DATA__, __SERVER_DATA__, and any embedded JSON
+  * Extract ALL images recursively from nested JSON structures (search all objects and arrays)
+  * CRITICAL: Search window.__SERVER_DATA__, window.__INITIAL_STATE__, window.__NEXT_DATA__, and ALL window.* objects for image data - these often contain the most complete product data
+  * CRITICAL: Extract images from ALL sources including:
+    - <img> tags with src attributes
+    - <meta> tags with property="og:image" or name="og:image" content attributes
+    - JSON-LD structured data (schema.org Product images)
+    - window.__SERVER_DATA__ and all nested objects/arrays within it
+    - window.__INITIAL_STATE__ and all nested objects/arrays within it
+    - window.__NEXT_DATA__ and all nested objects/arrays within it
+    - Any embedded JSON in <script> tags
+  * CRITICAL: Search recursively through ALL nested structures - images may be deeply nested in product objects, variant arrays, question/answer structures, etc.
+  * CRITICAL: ALWAYS prefer the LARGEST/BIGGEST product images available - prioritize high resolution over small thumbnails
+  * CRITICAL: When multiple image sizes are available, ALWAYS choose the largest dimensions (e.g., prefer larger width/height parameters, prefer higher resolution template names over default/low-resolution ones)
+  * CRITICAL: If ONLY thumbnail images are found (e.g., small size parameters), STILL extract them - thumbnails are better than no images
+  * CRITICAL: The instruction to "prefer large images" means: if you find both large AND small images, choose large. But if you only find small/thumbnail images, extract them anyway - do NOT skip images just because they are thumbnails
+  * For CDN images with size parameters: If you find images with small sizes, extract them. If you can find larger versions by modifying the URL (e.g., changing small size parameters to larger ones), extract the larger version. But if only small sizes exist, extract the small ones
+  * Prefer highest resolution variants (full/max/large over thumb/mini/square/small) WHEN AVAILABLE
+  * EXCLUDE: SVG files (icons/logos), UI icons, logos, shipping images, UI elements (but NOT product thumbnails - extract product thumbnails if that's all that exists)
+  * EXCLUDE: Placeholder images with text like "no image", "no photo", "image not available", "placeholder", "images unavailable"
+  * CRITICAL: If you find ANY product images (even small ones, even in meta tags like og:image), extract them - do NOT skip images
+  * CRITICAL: Extract images from meta tags (og:image, twitter:image) - these are often the primary product images
   * Extract ALL colorways, not just primary
 - video_url: Video URL if available (optional)
 - category: EXACT match from Google Product Taxonomy (character-for-character, including ">" symbols)
+  * CRITICAL: Categories MUST use the full hierarchical path with ">" separators (e.g., "Hardware > Tools", NOT just "Tools")
+  * CRITICAL: The category must include ALL parent categories - never use just a subcategory name
+  * CRITICAL: If you see "Tools" in the page, you must find the full path like "Hardware > Tools" in the taxonomy
+  * CRITICAL: The category must match EXACTLY from the provided taxonomy examples - character for character
+  * CRITICAL: Always use the format "Parent > Child" or "Parent > Child > Grandchild" - never use a single word
 - brand: Brand name
 - colors: List of available colors
 - variants: List with variant_type ("size", "color", "fit", "item") and variant_value
 
-Variants - extract ALL from JSON-LD, __NEXT_DATA__, __SERVER_DATA__, HTML select/button:
-- LL Bean (__SERVER_DATA__): Extract from product.questions[].answers[].title where type is "COLOR"/"SIZE"/"ITEM". Match SKU media to color variants.
-- Nike/Next.js (__NEXT_DATA__): Extract sizes from selectedProduct.sizes[].label or productGroups[].products[].sizes[].label. Extract colors from colorwayImages[].colorDescription with squarishImg/portraitImg.
-- Without structured data: Match images to colors by URL/filename patterns (e.g., "dark_brown", "iron", "navy").
-- Color variants MUST include image_urls field with matching images.
-- Extract ALL variants: if 8 colors and 6 sizes exist, extract all 14 variants.
+Variants - extract ALL from any available source (JSON-LD, embedded JSON scripts, HTML select/button elements):
+- CRITICAL: Extract size variants separately from color variants - they are independent
+- CRITICAL: Extract ALL size variants even if they have no images - sizes are independent of images
+- CRITICAL: Extract ALL color variants even if they have no images - colors are independent of images
+- CRITICAL: Variant JSON structure MUST be consistent - ALL variants must include the same fields:
+  * variant_type: string (required)
+  * variant_value: string (required)
+  * sku: string | null (optional, include if found)
+  * price: Price object | null (optional, include if variant-specific pricing found)
+  * in_stock: boolean | null (optional, include if availability found)
+  * image_urls: array of strings | null (REQUIRED for color variants, MUST be null or [] for size variants)
+- CRITICAL: For color variants, the image_urls field is REQUIRED - it must be included in the JSON, even if empty [] or null
+- CRITICAL: For size variants, image_urls should be null or omitted - sizes do not have variant-specific images
+- Look for variant data in any JSON structures (questions/answers, productGroups, selectedProduct, skus, variants, options, etc.)
+- CRITICAL: Search window.__SERVER_DATA__, window.__INITIAL_STATE__, and ALL window.* objects for variant data - these often contain the most complete variant information
+- For size variants (REQUIRED for shoes, clothing, etc.):
+  * Search __NEXT_DATA__ for: productGroups[].products[].sizes, selectedProduct.sizes, skuList[].size, availableSizes, sizeOptions
+  * Search HTML for: <select> with size options, size buttons, size dropdowns, data-size attributes
+  * Extract ALL sizes as separate variant objects: {{"variant_type": "size", "variant_value": "8", "image_urls": null}}, {{"variant_type": "size", "variant_value": "9", "image_urls": null}}, etc.
+  * Common size formats: numeric (6, 7, 8), half sizes (6.5, 7.5), letter sizes (S, M, L), or combinations
+- For color variants: Extract from color arrays, colorwayImages, availableColors, colorVariants, or similar structures
+  * CRITICAL: Extract the HUMAN-READABLE color name/description, NOT product codes or SKU identifiers
+  * CRITICAL: Extract ALL colors as color variants even if no images are found for them
+  * CRITICAL: Each color variant MUST include image_urls field - set to [] if no images found, or to array of image URLs if found
+  * Look for color descriptions in: colorDescription, colorName, colorwayDescription, colorwayName, title, name, label fields
+  * CRITICAL: Search question/answer structures, colorwayImages, and similar nested data - colors may be in questions[] where type="COLOR" or in colorwayImages[] with descriptive fields
+  * CRITICAL: When extracting from colorwayImages or similar nested structures, look for descriptive fields (colorDescription, colorwayDescription, colorName, etc.) rather than product codes or SKU identifiers
+  * Prefer descriptive names over product codes or numeric identifiers
+  * If you find both a code and a description, use the description for variant_value
+  * Only use codes if no human-readable description exists anywhere in the structure
+  * Each color should be a separate variant object with variant_type="color", variant_value="[human-readable color name]", and image_urls="[array of image URLs for this color]"
 
-Category examples:
-{sample_categories}
+CRITICAL: Match images to color variants using recursive meta-recognition of structured data:
+- CRITICAL: Your PRIMARY goal is to assign images to their corresponding color variants - do this FIRST before placing images in the main image_urls array
+- CRITICAL: Use recursive meta-recognition to systematically match images to colors:
+  1. FIRST: Search window.__SERVER_DATA__ for SKU objects that have both color information AND media/mediaIds arrays
+     * In __SERVER_DATA__.product.skus[], find SKUs that belong to a specific color (via questions[].answers[] where type="COLOR")
+     * Each SKU has a "media" or "mediaIds" array - these reference images in __SERVER_DATA__.product.media[]
+     * Match the SKU's media IDs to entries in the media[] array to get full image URLs
+     * Assign those image URLs to the color variant that the SKU belongs to
+  2. SECOND: Search for colorwayImages arrays in __NEXT_DATA__ or similar structures
+     * Each colorwayImage has a colorDescription/colorwayDescription and associated images (squarishImg, portraitImg, etc.)
+     * Match each colorwayImage to its corresponding color variant
+  3. THIRD: Match images based on URL patterns (color names in filenames/paths)
+  4. FOURTH: Match images based on data structure nesting (images within color-specific objects)
+- CRITICAL: Search window.__SERVER_DATA__, window.__INITIAL_STATE__, and ALL window.* objects for color-to-image mappings - these often contain complete variant data
+- CRITICAL: Search question/answer structures (questions[], answers[]) for color variant data with associated image URLs - colors and images may be nested in these structures across different sites
+- CRITICAL: In __SERVER_DATA__, look for the pattern: product.questions[] (where type="COLOR") → answers[] (with color name) → skus[] (with media/mediaIds) → product.media[] (with full image URLs)
+- CRITICAL: Each color variant MUST have unique images - NEVER use the same image URLs for different colors
+- CRITICAL: Assign images to color variants using these methods (in priority order):
+  1. HIGHEST PRIORITY: If a SKU object has both a color identifier (via questions/answers) AND a media/mediaIds array, assign those images to the matching color variant
+  2. HIGH PRIORITY: If image URL contains the color name (e.g., URL with "iron" → "Iron" color, URL with "navy" → "Navy" color), assign it to that color variant
+  3. HIGH PRIORITY: If data structure explicitly links images to colors (e.g., colorwayImages[].colorDescription with squarishImg/portraitImg), assign those images to the matching color variant
+  4. MEDIUM PRIORITY: If images are nested within a color-specific object/array in the data structure, assign them to that color
+  5. MEDIUM PRIORITY: If the current page URL contains a color name (e.g., "/miller-cotton-lyocell-trousers-iron"), assign all images from this page to that specific color variant
+- CRITICAL: For each color variant you extract, IMMEDIATELY search for its corresponding images using the methods above - do not wait until the end
+- CRITICAL: If an image URL contains a color name in the filename or path (e.g., "iron", "navy", "black", "olive", "khaki", "brown"), ONLY assign it to the matching color variant - do NOT assign it to other colors or the main image_urls
+- CRITICAL: If you cannot determine which color an image belongs to after exhaustive search, place it in the main product image_urls array, NOT in any color variant's image_urls
+- CRITICAL: Do NOT duplicate images across multiple color variants - each image URL should appear in only ONE place (either one color variant OR the main image_urls array)
+- CRITICAL: ALWAYS prefer the LARGEST/BIGGEST images for each color variant - prioritize high resolution images
+- CRITICAL: If ONLY thumbnail images are found for a color variant, STILL extract them - thumbnails are better than no images
+- CRITICAL: If you find images for ONE color, try to find images for ALL colors using the same pattern - look for URL patterns, data structures, or nested objects that might contain images for other colors
+- CRITICAL: Search recursively through ALL nested data structures - variant images may be deeply nested in arrays, objects, or question/answer structures
+- CRITICAL: Look for image URL patterns that might indicate different colors (e.g., URLs containing color names, color codes, or variant identifiers)
+- CRITICAL: When matching images to colors, examine the URL structure carefully - color names in URLs (like "iron", "navy", "black") are strong indicators of which color variant the image belongs to
 
-Variant structure example:
-[
-  {{"variant_type": "size", "variant_value": "10"}},
-  {{"variant_type": "size", "variant_value": "11"}},
-  {{"variant_type": "color", "variant_value": "Black", "image_urls": ["https://example.com/black.jpg"]}}
+CRITICAL: Variant JSON examples:
+- Size variant: {{"variant_type": "size", "variant_value": "Large", "sku": null, "price": null, "in_stock": true, "image_urls": null}}
+- Color variant with images: {{"variant_type": "color", "variant_value": "Iron", "sku": null, "price": null, "in_stock": null, "image_urls": ["https://example.com/iron-1.jpg", "https://example.com/iron-2.jpg"]}}
+- Color variant without images: {{"variant_type": "color", "variant_value": "Navy", "sku": null, "price": null, "in_stock": null, "image_urls": []}}
+
+CRITICAL: Try to find images for each color variant, but if images cannot be found after exhaustive search, STILL include the color variant with image_urls set to [] (empty array, NOT null)
+CRITICAL: Always extract ALL available colors as color variants in the variants array, even if you can't find variant-specific images
+CRITICAL: If the current page only shows images for one color (e.g., the "Iron" color page), only assign those images to that specific color variant - do NOT assign them to all color variants
 ]"""
-
 def _get_category_samples(max_examples: int = 25) -> str:
     """Get diverse category examples from taxonomy for LLM prompt."""
     samples = []
@@ -116,7 +199,7 @@ def _extract_invalid_category(error: str) -> str | None:
 
 
 def _filter_product_images(image_urls: list[str]) -> list[str]:
-    """Filter out UI icons, logos, and non-product images."""
+    """Filter out UI icons, logos, placeholder images, and non-product images."""
     filtered = []
     exclude_keywords = [
         'icon', 'logo', 'header', 'cart', 'user', 'arrow', 'dropdown', 
@@ -124,7 +207,9 @@ def _filter_product_images(image_urls: list[str]) -> list[str]:
         'resources/images', 'heart-inactive', 'hammer-icon', 'angle-down',
         'circle-user', 'cart-shopping', 'store-location', 'truck', 'shipping',
         'freeshipping', 'delivery', 'badge', 'promo', 'banner', 'advertisement',
-        'ad-', 'marketing', 'campaign'
+        'ad-', 'marketing', 'campaign', 'no-image', 'noimage', 'no-photo', 'nophoto',
+        'image-not-available', 'image-not-found', 'not-available', 'unavailable',
+        'missing-image', 'missingimage', 'default-image', 'defaultimage'
     ]
     
     for url in image_urls:
@@ -163,142 +248,56 @@ def _filter_product_images(image_urls: list[str]) -> list[str]:
         if '/promo/' in url_lower or '/banner/' in url_lower or '/advertisement/' in url_lower or '/marketing/' in url_lower:
             continue
         
+        # Skip placeholder images (check URL for placeholder indicators)
+        placeholder_patterns = [
+            'no.image', 'noimage', 'no-photo', 'nophoto', 'not-available', 'unavailable',
+            'missing', 'default-image', 'placeholder-image', 'image-placeholder',
+            'no-image', 'image-not-found', 'image-not-available'
+        ]
+        if any(pattern in url_lower for pattern in placeholder_patterns):
+            continue
+        
         filtered.append(url)
     
     return filtered
 
 
-def _match_images_to_color_variants(product: Product) -> Product:
+def _deduplicate_variant_images(product: Product) -> None:
     """
-    Match all product images to their corresponding color variants.
+    Deduplicate image URLs across variants.
     
-    For each color variant, finds all images in product.image_urls that match
-    the color name in the URL/filename and updates the variant's image_urls.
-    If a variant already has images from LLM extraction, we merge with additional matches.
+    If the same image URL appears in multiple variants, keep it only in the first variant
+    that contains it. This ensures each image URL appears in exactly one variant.
+    
+    Args:
+        product: Product object to deduplicate (modified in place)
     """
-    if not product.variants or not product.image_urls:
-        return product
+    seen_image_urls = set()
+    removed_count = 0
     
-    # Get all color variants
-    color_variants = [v for v in product.variants if v.variant_type.lower() == 'color']
-    
-    if not color_variants:
-        return product
-    
-    # Create a mapping of color names to their normalized search patterns
-    color_patterns = {}
-    for variant in color_variants:
-        color_name = variant.variant_value.lower().strip()
-        # Create search patterns: original name, with underscores, with hyphens, without spaces
-        patterns = [
-            color_name,
-            color_name.replace(' ', '_'),
-            color_name.replace(' ', '-'),
-            color_name.replace(' ', ''),
-            color_name.replace('_', '-'),
-            color_name.replace('-', '_'),
-        ]
-        # Add variations for common color names
-        if 'khaki' in color_name:
-            if 'light' in color_name:
-                patterns.extend(['light_khaki', 'light-khaki', 'lightkhaki'])
-            else:
-                patterns.extend(['khaki'])
-        if 'brown' in color_name:
-            if 'dark' in color_name:
-                patterns.extend(['dark_brown', 'dark-brown', 'darkbrown'])
-            else:
-                patterns.extend(['brown'])
-        if 'heather' in color_name:
-            patterns.append(color_name.replace(' heather', '').replace('heather', ''))
-        if 'navy' in color_name:
-            patterns.extend(['navy', 'navy_blue', 'navy-blue'])
-        if 'blue' in color_name and 'navy' not in color_name:
-            patterns.extend(['blue'])
-        if 'olive' in color_name:
-            patterns.extend(['olive'])
-        if 'oyster' in color_name:
-            patterns.extend(['oyster'])
-        if 'iron' in color_name:
-            patterns.extend(['iron'])
-        if 'black' in color_name:
-            patterns.extend(['black'])
-        if 'white' in color_name:
-            patterns.extend(['white'])
-        
-        color_patterns[variant.variant_value] = patterns
-    
-    # Track which images have been matched
-    matched_images = set()
-    
-    # Match images to colors
-    for variant in color_variants:
-        if variant.variant_type.lower() != 'color':
-            continue
-        
-        color_name = variant.variant_value
-        patterns = color_patterns.get(color_name, [color_name.lower()])
-        matching_images = []
-        
-        # Start with any images already linked by LLM
-        existing_images = set(variant.image_urls or [])
-        matching_images.extend(existing_images)
-        matched_images.update(existing_images)
-        
-        # Find additional matching images
-        for image_url in product.image_urls:
-            if image_url in matched_images:
-                continue  # Skip if already matched to another color
+    for variant in product.variants:
+        if variant.image_urls:
+            # Filter out image URLs that have already been seen in other variants
+            original_count = len(variant.image_urls)
+            variant.image_urls = [
+                url for url in variant.image_urls
+                if url not in seen_image_urls
+            ]
             
-            url_lower = image_url.lower()
-            # Check if any pattern matches in the URL (use word boundaries to avoid substring matches)
-            matched = False
-            for pattern in patterns:
-                if not pattern or len(pattern) <= 2:
-                    continue
-                # Use word boundaries to prevent "black" matching "dark-brown"
-                # Check for exact word match or at word boundary
-                # Try exact word match first (most specific)
-                word_pattern = r'\b' + re.escape(pattern) + r'\b'
-                if re.search(word_pattern, url_lower):
-                    matching_images.append(image_url)
-                    matched_images.add(image_url)
-                    matched = True
-                    break
-                # Fallback: check if pattern appears at start/end of filename segment
-                # (e.g., "iron" in "miller-cotton-lyocell-iron.jpg")
-                # Make sure it's not a substring match (e.g., "black" in "dark-brown")
-                # Check if it's followed/preceded by separator (hyphen, underscore, or dot)
-                separator_pattern = r'[-_]' + re.escape(pattern) + r'[-_.]|' + re.escape(pattern) + r'[-_.]'
-                if re.search(separator_pattern, url_lower):
-                    matching_images.append(image_url)
-                    matched_images.add(image_url)
-                    matched = True
-                    break
-            if matched:
-                continue
-        
-        # Update variant with all matching images (deduplicated)
-        if matching_images:
-            # Remove duplicates while preserving order
-            seen = set()
-            unique_images = []
-            for img in matching_images:
-                if img not in seen:
-                    seen.add(img)
-                    unique_images.append(img)
-            variant.image_urls = unique_images
-            logger.info(
-                f"Matched {len(unique_images)} images to color variant '{color_name}' "
-                f"(was {len(existing_images)} before)"
-            )
-        else:
-            logger.warning(
-                f"No images matched for color variant '{color_name}' "
-                f"(patterns: {patterns[:3]}...)"
-            )
+            # Track the URLs we're keeping for this variant
+            for url in variant.image_urls:
+                seen_image_urls.add(url)
+            
+            removed = original_count - len(variant.image_urls)
+            if removed > 0:
+                removed_count += removed
+                logger.debug(
+                    f"Removed {removed} duplicate image URL(s) from variant "
+                    f"{variant.variant_type}={variant.variant_value}"
+                )
     
-    return product
+    if removed_count > 0:
+        logger.info(f"Deduplicated {removed_count} duplicate image URL(s) across variants")
 
 
 async def extract_product_from_html(html_content: str, file_path: str = "") -> Product:
@@ -328,10 +327,7 @@ async def extract_product_from_html(html_content: str, file_path: str = "") -> P
     )
     
     sample_categories = _get_category_samples()
-    prompt = EXTRACTION_PROMPT_TEMPLATE.format(
-        reduced_html=reduced_html,
-        sample_categories=sample_categories
-    )
+    prompt = EXTRACTION_PROMPT_TEMPLATE.replace('{reduced_html}', reduced_html).replace('{sample_categories}', sample_categories)
     
     logger.info("Extracting product data with LLM...")
     
@@ -346,6 +342,15 @@ async def extract_product_from_html(html_content: str, file_path: str = "") -> P
                 text_format=Product
             )
             
+            # Check if product extraction returned None
+            if product is None:
+                error_msg = "LLM returned None instead of a Product object"
+                if attempt < MAX_RETRIES - 1:
+                    logger.warning(f"{error_msg}. Retrying...")
+                    continue
+                else:
+                    raise ValueError(error_msg)
+            
             # Filter out UI icons and non-product images
             if product.image_urls:
                 original_count = len(product.image_urls)
@@ -354,8 +359,8 @@ async def extract_product_from_html(html_content: str, file_path: str = "") -> P
                 if original_count != filtered_count:
                     logger.info(f"Filtered {original_count - filtered_count} non-product images")
             
-            # Match all images to color variants
-            product = _match_images_to_color_variants(product)
+            # Deduplicate image URLs across variants
+            _deduplicate_variant_images(product)
             
             logger.info(f"✓ Successfully extracted product: {product.name}")
             return product

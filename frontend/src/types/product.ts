@@ -13,12 +13,17 @@ export interface Variant {
   image_urls?: string[] | null;
 }
 
+export interface Category {
+  name: string;
+}
+
 export interface Product {
   name: string;
   brand: string;
   price: Price;
   image_urls: string[];
   colors?: string[];
+  category?: Category;
   description?: string;
   key_features?: string[];
   variants?: Variant[];

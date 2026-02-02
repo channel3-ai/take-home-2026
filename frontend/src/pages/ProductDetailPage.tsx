@@ -14,6 +14,7 @@ const ProductDetailPage = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [selectedVariants, setSelectedVariants] = useState<Record<string, string>>({});
+  const [failedImages, setFailedImages] = useState<Set<string>>(new Set());
 
   useEffect(() => {
     const fetchProduct = async () => {
@@ -35,10 +36,12 @@ const ProductDetailPage = () => {
 
         setProduct(foundProduct);
         
-        // Set default selected color variant if available
+        // Set default selected color variant if available (only if it has images)
         if (foundProduct.variants) {
           const colorVariant = foundProduct.variants.find(
-            (v) => v.variant_type.toLowerCase() === 'color'
+            (v) => v.variant_type.toLowerCase() === 'color' &&
+                   v.image_urls && 
+                   v.image_urls.length > 0
           );
           if (colorVariant) {
             setSelectedVariants(prev => ({
@@ -59,7 +62,29 @@ const ProductDetailPage = () => {
     }
   }, [id]);
 
-  // Group variants by type
+  // Track failed images
+  const handleImageFailed = (imageUrl: string) => {
+    setFailedImages(prev => new Set([...prev, imageUrl]));
+  };
+
+  // Filter out color variants whose images all failed or have no images
+  const filterVariantsWithFailedImages = (variants: Variant[]): Variant[] => {
+    return variants.filter(variant => {
+      // Only filter color variants
+      if (variant.variant_type.toLowerCase() !== 'color') {
+        return true;
+      }
+      // If color variant has no images, exclude it
+      if (!variant.image_urls || variant.image_urls.length === 0) {
+        return false;
+      }
+      // Check if all images for this variant have failed
+      const allImagesFailed = variant.image_urls.every(url => failedImages.has(url));
+      return !allImagesFailed;
+    });
+  };
+
+  // Group variants by type and filter out variants with all failed images
   const groupedVariants = product?.variants?.reduce((acc, variant) => {
     if (!acc[variant.variant_type]) {
       acc[variant.variant_type] = [];
@@ -67,6 +92,35 @@ const ProductDetailPage = () => {
     acc[variant.variant_type].push(variant);
     return acc;
   }, {} as Record<string, Variant[]>) || {};
+
+  // Filter variants to remove colors with all failed images
+  const filteredGroupedVariants = Object.entries(groupedVariants).reduce((acc, [variantType, variants]) => {
+    acc[variantType] = filterVariantsWithFailedImages(variants);
+    return acc;
+  }, {} as Record<string, Variant[]>);
+
+  // If selected color variant was filtered out, auto-select first available color
+  useEffect(() => {
+    if (product && selectedVariants.color) {
+      const colorVariants = filteredGroupedVariants['color'] || [];
+      const isSelectedColorValid = colorVariants.some(v => v.variant_value === selectedVariants.color);
+      
+      if (!isSelectedColorValid && colorVariants.length > 0) {
+        // Selected color was filtered out, select first available color
+        setSelectedVariants(prev => ({
+          ...prev,
+          color: colorVariants[0].variant_value,
+        }));
+      } else if (!isSelectedColorValid && colorVariants.length === 0) {
+        // No color variants available, clear selection
+        setSelectedVariants(prev => {
+          const newVariants = { ...prev };
+          delete newVariants.color;
+          return newVariants;
+        });
+      }
+    }
+  }, [product, filteredGroupedVariants, selectedVariants.color]);
 
   const handleVariantSelect = (variantType: string, variantValue: string) => {
     setSelectedVariants(prev => ({
@@ -126,14 +180,38 @@ const ProductDetailPage = () => {
 
   return (
     <div className="h-screen overflow-hidden">
+      <style>{`
+        @keyframes fade-in {
+          from {
+            opacity: 0;
+            transform: translateY(10px);
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0);
+          }
+        }
+        @media (prefers-reduced-motion: reduce) {
+          .animate-fade-in {
+            animation: none;
+          }
+        }
+        .animate-fade-in {
+          animation: fade-in 0.4s ease-out;
+        }
+      `}</style>
       <div className="grid grid-cols-2 h-full">
         {/* Left Side - Images */}
-        <div className="overflow-y-auto border-r border-border flex items-center justify-center" >
-          <ProductImageGallery images={images} productName={product.name} />
+        <div className="overflow-y-auto border-r border-border flex items-center justify-center animate-fade-in">
+          <ProductImageGallery 
+            images={images} 
+            productName={product.name}
+            onImageFailed={handleImageFailed}
+          />
         </div>
 
         {/* Right Side - Product Details */}
-        <div className="overflow-y-auto p-8">
+        <div className="overflow-y-auto p-8 animate-fade-in" style={{ animationDelay: '100ms', animationFillMode: 'both' }}>
           <div className="max-w-2xl mx-auto space-y-6">
             <BackButton />
 
@@ -152,17 +230,35 @@ const ProductDetailPage = () => {
             </p>
 
             {/* Variants Section */}
-            {Object.keys(groupedVariants).length > 0 && (
+            {Object.keys(filteredGroupedVariants).length > 0 && (
               <div className="space-y-4">
-                {Object.entries(groupedVariants).map(([variantType, variants]) => (
-                  <VariantSelector
-                    key={variantType}
-                    variantType={variantType}
-                    variants={variants}
-                    selectedValue={selectedVariants[variantType]}
-                    onSelect={handleVariantSelect}
-                  />
-                ))}
+                {Object.entries(filteredGroupedVariants).map(([variantType, variants]) => {
+                  // If selected variant was filtered out, clear the selection
+                  const selectedValue = selectedVariants[variantType];
+                  const isValidSelection = variants.some(v => v.variant_value === selectedValue);
+                  const displayValue = isValidSelection ? selectedValue : undefined;
+                  
+                  return (
+                    <VariantSelector
+                      key={variantType}
+                      variantType={variantType}
+                      variants={variants}
+                      selectedValue={displayValue}
+                      onSelect={handleVariantSelect}
+                    />
+                  );
+                })}
+              </div>
+            )}
+
+            {product.category && (
+              <div className="space-y-2">
+                <h2 className="text-xl font-semibold text-foreground">
+                  Category
+                </h2>
+                <p className="text-foreground leading-relaxed">
+                  {product.category.name}
+                </p>
               </div>
             )}
 
