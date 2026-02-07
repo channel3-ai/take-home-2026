@@ -2,7 +2,7 @@ from typing import Any
 from pathlib import Path
 from pydantic import BaseModel, field_validator
 
-# Load categories once at module level
+# Load categories once at module level.
 CATEGORIES_FILE = Path(__file__).parent / "categories.txt"
 VALID_CATEGORIES = set()
 if CATEGORIES_FILE.exists():
@@ -13,7 +13,7 @@ if CATEGORIES_FILE.exists():
                 VALID_CATEGORIES.add(line)
 
 class Category(BaseModel):
-    # A category from Google's Product Taxonomy
+    # A category from Google's Product Taxonomy:
     # https://www.google.com/basepages/producttype/taxonomy.en-US.txt
     name: str
 
@@ -27,7 +27,7 @@ class Category(BaseModel):
 class Price(BaseModel):
     price: float
     currency: str
-    # If a product is on sale, this is the original price
+    # If a product is on sale, then this is the original price.
     compare_at_price: float | None = None
 
 # This is the final product schema that you need to output. 
@@ -42,4 +42,4 @@ class Product(BaseModel):
     category: Category
     brand: str
     colors: list[str]
-    variants: list[Any] # TODO (@dev): Define variant model
+    variants: list[Any] # TODO (@dev): Define variant model(s).
