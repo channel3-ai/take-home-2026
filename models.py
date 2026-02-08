@@ -24,6 +24,15 @@ class Category(BaseModel):
         if v not in VALID_CATEGORIES:
             raise ValueError(f"Category '{v}' is not a valid category in categories.txt.")
         return v
+    
+class Variant(BaseModel):
+    # The idea is that this is simply a list of key-value pairs.
+    # We want to gather as much information as possible from the HTML
+    # pages. Given that websites differ in the amount of product information
+    # that they expose via their HTML code, I'm intentionally making this
+    # "schemaless" so that we can add distinguishing factors as we are 
+    # able to do so.
+    configurations: dict[str, str]
 
 class Price(BaseModel):
     price: float
@@ -44,4 +53,4 @@ class Product(BaseModel):
     category: Category
     brand: str
     colors: list[str]
-    variants: list[Any] # TODO (@dev): Define variant model(s).
+    variants: list[Variant]
