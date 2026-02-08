@@ -2,36 +2,38 @@ from typing import Any
 from pathlib import Path
 from pydantic import BaseModel, field_validator
 
-# Load categories once at module level.
-CATEGORIES_FILE = Path(__file__).parent / "categories.txt"
-VALID_CATEGORIES = set()
+# The following code brings in all of the categories against which 
+# I must match the Product objects that I am hydrating.
+CATEGORIES_FILE: Path = Path(__file__).parent / "categories.txt"
+VALID_CATEGORIES: set = set()
 if CATEGORIES_FILE.exists():
     with open(CATEGORIES_FILE, "r") as f:
         for line in f:
-            line = line.strip()
+            line: str = line.strip()
             if line and not line.startswith("#"):
                 VALID_CATEGORIES.add(line)
 
+# This class represents a category from Google's Product Taxonomy:
+# https://www.google.com/basepages/producttype/taxonomy.en-US.txt
 class Category(BaseModel):
-    # A category from Google's Product Taxonomy:
-    # https://www.google.com/basepages/producttype/taxonomy.en-US.txt
     name: str
 
     @field_validator("name")
     @classmethod
     def validate_name_exists(cls, v: str) -> str:
         if v not in VALID_CATEGORIES:
-            raise ValueError(f"Category '{v}' is not a valid category in categories.txt")
+            raise ValueError(f"Category '{v}' is not a valid category in categories.txt.")
         return v
 
 class Price(BaseModel):
     price: float
     currency: str
-    # If a product is on sale, then this is the original price.
+
+    # If a product is on sale, then compare_at_price represents 
+    # the original price.
     compare_at_price: float | None = None
 
-# This is the final product schema that you need to output. 
-# You may add additional models as needed.
+# This is the final product schema that I need to output. 
 class Product(BaseModel):
     name: str
     price: Price
