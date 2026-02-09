@@ -13,6 +13,9 @@ if CATEGORIES_FILE.exists():
             if line and not line.startswith("#"):
                 VALID_CATEGORIES.add(line)
 
+class ProductExtractionRequest(BaseModel):
+    paths: list[str]
+
 # This class represents a category from Google's Product Taxonomy:
 # https://www.google.com/basepages/producttype/taxonomy.en-US.txt
 class Category(BaseModel):
@@ -32,7 +35,7 @@ class Variant(BaseModel):
     # that they expose via their HTML code, I'm intentionally making this
     # "schemaless" so that we can add distinguishing factors as we are 
     # able to do so.
-    configurations: dict[str, str]
+    configurations: dict[str, str] | None = None
 
 class Price(BaseModel):
     price: float
@@ -49,8 +52,11 @@ class Product(BaseModel):
     description: str
     key_features: list[str]
     image_urls: list[str]
-    video_url: str | None = None
+    video_url: str | None
     category: Category
     brand: str
     colors: list[str]
     variants: list[Variant]
+
+class ProductList(BaseModel):
+    products: list[Product]

@@ -9,7 +9,7 @@ from backend.html_utils import (
     extract_text_content,
     get_html_summary
 )
-from models import Product
+from models import Product, ProductExtractionRequest, ProductList
 from backend.prompts import LLM_PROMPT
 
 # Third-Party
@@ -17,7 +17,6 @@ from dotenv import load_dotenv
 from fastapi import FastAPI, HTTPException
 from fastapi.responses import JSONResponse
 import os
-from typing import List
 
 
 # To run this back-end process, run the following command:
@@ -71,79 +70,63 @@ def _combine_html_files(html_files_dict: dict) -> str:
     return combined
 
 
+# curl -X POST http://localhost:8000/products/ -H "Content-Type: application/json" -d '{"paths": ["data/rawData/ace.html", "data/rawData/article.html", "adaysmarch.html", "llbean.html", "nike.html"]}'
 @app.post("/products/")
-async def extract_products() -> dict:
-    """
-    Extract product information from all HTML files in the data/rawData directory.
-    Sends all files to OpenAI and returns a list of Product objects.
-    
-    Returns:
-        dict with 'status' and 'products' (list of Product objects)
-    """
+async def extract_products(request: ProductExtractionRequest) -> dict:
     try:
-        data_dir = Path("../data/rawData")
-        
-        if not data_dir.exists():
-            raise HTTPException(
-                status_code=404,
-                detail=f"Data directory not found: {data_dir}."
-            )
-        
-        # Load all HTML files
-        html_files = list(data_dir.glob("*.html"))
-        
-        if not html_files:
-            raise HTTPException(
-                status_code=404,
-                detail="No HTML files found in data directory."
-            )
-        
-        print(f"Found {len(html_files)} HTML files to process.")
-        
-        html_files_dict = {}
-        for html_file in html_files:
+        if not request.paths:
+            raise HTTPException(status_code=400, detail="No file paths provided.")
+
+        all_products = []
+        processed_files = 0
+        failures = []
+
+        for path_str in request.paths:
+            path = Path(path_str)
+
+            if not path.exists():
+                failures.append({"path": path_str, "error": "File not found"})
+                continue
+
             try:
-                html_content = html_file.read_text(encoding="utf-8")
-                html_files_dict[html_file.stem] = html_content
+                html_content = path.read_text(encoding="utf-8")
             except Exception as e:
-                print(f"Warning: Could not read {html_file.name}: {e}.")
-        
-        if not html_files_dict:
-            raise HTTPException(
-                status_code=400,
-                detail="Could not read any HTML files."
-            )
-        
-        # Combine all HTML files into a single prompt
-        combined_content = _combine_html_files(html_files_dict)
-        
-        # Create prompt for OpenAI using the LLM_PROMPT from prompts.py
-        prompt = f"""{LLM_PROMPT}
-        PRODUCT DATA:
-        {combined_content}
-        """
-        
-        # After we clean the raw HTML input, we send it to an LLM
-        # and form the resultant JSON array into Product objects.
-        products = await responses(
-            model="openai/gpt-5",
-            input=prompt,
-            text_format=List[Product],
-            temperature=0.3,
-            max_tokens=4000
-        )
-        
+                failures.append({"path": path_str, "error": str(e)})
+                continue
+
+            cleaned = _clean_html_for_ai(html_content, path.stem)
+
+            prompt = f"""{LLM_PROMPT}
+            PRODUCT DATA:
+            {cleaned}
+            """
+
+            try:
+                print(f"Calling model for {path.name}...")
+                result = await responses(
+                    model="openai/gpt-5",
+                    input=prompt,
+                    text_format=ProductList,
+                )
+                print(f"Finished {path.name}")
+
+                all_products.extend(result.products)
+                processed_files += 1
+
+            except Exception as e:
+                print(f"Failed {path.name}: {e}")
+                failures.append({"path": path_str, "error": str(e)})
+
         return {
             "status": "success",
-            "product_count": len(products),
-            "files_processed": len(html_files_dict),
-            "products": [product.dict() for product in products]
+            "files_requested": len(request.paths),
+            "files_processed": processed_files,
+            "product_count": len(all_products),
+            "products": [p.dict() for p in all_products],
+            "failures": failures,
         }
-    
+
     except HTTPException:
         raise
     except Exception as e:
-        return JSONResponse(
-            {"error": str(e), "status": "error"},
-            status_code=500
-        )
+        return JSONResponse({"error": str(e), "status": "error"}, status_code=500)

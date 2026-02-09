@@ -23,7 +23,8 @@ data that is found within the HTML data that I am sending you.
 it under one of the following categories from Google's Product Taxonomy: 
 ''' + categories + '''
 4. For the product's price, please use the standard decimal format (e.g., a twenty-five-dollar shirt
-would be 25.00). For the specific currency, adhere to the ISO 4217 standard. If you
+would be 25.00). Prices must be numeric values like 19.99 (no currency symbols).
+For the specific currency, adhere to the ISO 4217 standard. If you
 find that this product is discounted, then the discounted price is to populated
 into the Product object's compare_at_price field, whereas the regular price is to 
 populate its price field. 
