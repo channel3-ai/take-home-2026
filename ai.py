@@ -24,7 +24,6 @@ MODEL_PRICES: dict[str, dict[str, float]] = {
     "openai/gpt-5": {"input": 1.25, "output": 10.00},
     "openai/gpt-5-mini": {"input": 0.25, "output": 2.00},
     "openai/gpt-5-nano": {"input": 0.05, "output": 0.40},
-    # More models:
 }
 
 T = TypeVar("T", bound=BaseModel)
