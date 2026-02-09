@@ -7,8 +7,8 @@ LLM is able to extract from the raw, unstructued HTML data that I am
 feeding it.
 """
 
-categories: str = VALID_CATEGORIES
-LLM_PROMPT: str = f'''
+categories: str = str(VALID_CATEGORIES)
+LLM_PROMPT: str = '''
 I am going to feed you raw, unstructured HTML data; a text file that
 lists all of the categories under which a product can fit; and a schema against which you
 must create JSON objects. In simple terms, we are going to transform raw data into consistent,
@@ -21,7 +21,7 @@ should not guess to try to "fill in the blanks." You are to only populate Produc
 data that is found within the HTML data that I am sending you.
 3. Using the knowledge of the product that you've extracted from the HTML data, please categorise 
 it under one of the following categories from Google's Product Taxonomy: 
-{categories}
+''' + categories + '''
 4. For the product's price, please use the standard decimal format (e.g., a twenty-five-dollar shirt
 would be 25.00). For the specific currency, adhere to the ISO 4217 standard. If you
 find that this product is discounted, then the discounted price is to populated

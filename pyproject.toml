@@ -5,6 +5,7 @@ description = "Asad Shamsiev's submission for Channel3's take-home assignment."
 readme = "README.md"
 requires-python = ">=3.12"
 dependencies = [
+    "bs4",
     "fastapi",
     "openai>=2.17.0",
     "pydantic>=2.12.5",

@@ -1,23 +1,28 @@
 # Local
+import sys
 from pathlib import Path
+sys.path.insert(0, str(Path(__file__).parent.parent))
+
 from ai import responses
-from html_utils import (
+from backend.html_utils import (
     extract_media_links,
     extract_text_content,
     get_html_summary
 )
 from models import Product
-from prompts import LLM_PROMPT
+from backend.prompts import LLM_PROMPT
 
 # Third-Party
 from dotenv import load_dotenv
 from fastapi import FastAPI, HTTPException
 from fastapi.responses import JSONResponse
+import os
 from typing import List
 
 
 # To run this back-end process, run the following command:
-# "python3 -m uvicorn main:app --reload"
+# "uv sync"
+# "uv run uvicorn process_html:app --reload"
 load_dotenv()
 
 app = FastAPI()
@@ -121,7 +126,7 @@ async def extract_products() -> dict:
         # After we clean the raw HTML input, we send it to an LLM
         # and form the resultant JSON array into Product objects.
         products = await responses(
-            model="google/gemini-2.5-flash-lite",
+            model="openai/gpt-5",
             input=prompt,
             text_format=List[Product],
             temperature=0.3,
