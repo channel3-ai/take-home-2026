@@ -1,13 +1,23 @@
+import { useState } from "react";
 import { useParams, Link } from "react-router-dom";
 
 export default function ProductPage({ products }) {
   const { id } = useParams();
   const product = products[id];
 
+  const [activeVariant, setActiveVariant] = useState(null);
+
   if (!product) return <p>Not found.</p>;
 
   const { name, brand, description, key_features, price, colors, variants } =
     product;
+
+  const images =
+    activeVariant?.image_urls?.length > 0
+      ? activeVariant?.image_urls
+      : product?.image_urls;
+
+  const video = activeVariant?.video_url || product.video_url;
 
   return (
     <div className="product-page">
@@ -17,6 +27,19 @@ export default function ProductPage({ products }) {
 
       <h1 className="product-title">{name}</h1>
       <p className="product-brand">{brand}</p>
+
+      {/* MEDIA */}
+      <div className="media">
+        {video ? (
+          <video controls className="video">
+            <source src={video} />
+          </video>
+        ) : images?.length > 0 ? (
+          <img src={images[0]} alt={name} className="image" />
+        ) : (
+          <div className="image placeholder">No media available</div>
+        )}
+      </div>
 
       <div className="price-block">
         <span className="price">
@@ -55,13 +78,13 @@ export default function ProductPage({ products }) {
       {variants?.length > 0 && (
         <section>
           <h2>Variants</h2>
-          <ul>
+          <div className="variants">
             {variants.map((v, i) => (
-              <li key={i}>
+              <button key={i} onClick={() => setActiveVariant(v)}>
                 {v.key}: {v.value}
-              </li>
+              </button>
             ))}
-          </ul>
+          </div>
         </section>
       )}
     </div>
