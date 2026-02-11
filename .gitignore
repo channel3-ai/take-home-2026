@@ -1,5 +1,8 @@
+# General
 .env
 __pycache__/
-
-# don't assume they're using UV
 uv.lock
+Notes.txt
+product-registry/node_modules/
+product-registry/yarn.lock
+product-registry/package-lock.json

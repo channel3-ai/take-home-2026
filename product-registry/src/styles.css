@@ -1,0 +1,154 @@
+:root {
+  --accent: #8b0000;
+  --border: #d9d9d9;
+  --text: #222;
+}
+
+body {
+  margin: 0;
+  font-family: Georgia, "Times New Roman", serif;
+  color: var(--text);
+  background: #fff;
+}
+
+.container {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 24px;
+}
+
+/* Header! */
+.site-header {
+  border-bottom: 3px solid var(--accent);
+  padding: 18px 0;
+}
+
+.logo {
+  font-size: 22px;
+  text-decoration: none;
+  color: var(--accent);
+  font-weight: bold;
+  letter-spacing: 0.5px;
+}
+
+/* Grid! */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 18px;
+  margin-top: 24px;
+}
+
+/* Card! */
+.card {
+  border: 1px solid var(--border);
+  text-decoration: none;
+  color: inherit;
+  background: #fff;
+}
+
+.card:hover {
+  border-color: var(--accent);
+}
+
+.card-body {
+  padding: 16px;
+}
+
+.card-title {
+  font-size: 16px;
+  margin: 0 0 8px;
+}
+
+.card-brand {
+  font-size: 14px;
+  margin: 0 0 12px;
+  color: #666;
+}
+
+.card-price {
+  font-weight: bold;
+  color: var(--accent);
+}
+
+/* Product Page! */
+.product-page {
+  max-width: 800px;
+}
+
+.product-title {
+  margin-bottom: 6px;
+}
+
+.product-brand {
+  color: #666;
+  margin-bottom: 16px;
+}
+
+.price-block {
+  margin-bottom: 18px;
+}
+
+.price {
+  font-size: 20px;
+  font-weight: bold;
+  color: var(--accent);
+  margin-right: 10px;
+}
+
+.compare {
+  text-decoration: line-through;
+  color: #777;
+}
+
+section {
+  border-top: 1px solid var(--border);
+  padding-top: 16px;
+  margin-top: 16px;
+}
+
+.back-link {
+  display: inline-block;
+  margin-bottom: 16px;
+  color: var(--accent);
+  text-decoration: none;
+}
+
+.media {
+  margin: 18px 0;
+  border: 1px solid var(--border);
+  padding: 12px;
+  background: #fafafa;
+}
+
+.image {
+  width: 100%;
+  max-height: 420px;
+  object-fit: contain;
+}
+
+.video {
+  width: 100%;
+}
+
+.placeholder {
+  height: 220px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #777;
+  font-style: italic;
+}
+
+.variants button {
+  margin: 6px 6px 0 0;
+  padding: 6px 10px;
+  border: 1px solid var(--border);
+  background: white;
+  cursor: pointer;
+}
+
+.variants button:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
