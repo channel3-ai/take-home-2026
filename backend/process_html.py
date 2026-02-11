@@ -20,7 +20,7 @@ import json
 import os
 
 
-# To run this back-end process, run the following command:
+# To run this back-end process, run the following commands:
 # "uv sync"
 # "uv run uvicorn backend.process_html:app --reload"
 load_dotenv()
