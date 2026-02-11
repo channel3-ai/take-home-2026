@@ -4,3 +4,5 @@ __pycache__/
 uv.lock
 Notes.txt
 product-registry/node_modules/
+product-registry/yarn.lock
+product-registry/package-lock.json
