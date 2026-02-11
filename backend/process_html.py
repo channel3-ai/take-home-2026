@@ -84,7 +84,7 @@ async def extract_products(request: ProductExtractionRequest) -> dict:
             path = Path(path_str)
 
             if not path.exists():
-                failures.append({"path": path_str, "error": "File not found"})
+                failures.append({"path": path_str, "error": "File not found."})
                 continue
 
             try:
@@ -131,9 +131,9 @@ async def extract_products(request: ProductExtractionRequest) -> dict:
             output_path.parent.mkdir(parents=True, exist_ok=True)
             with open(output_path, "w") as f:
                 json.dump(result, f, indent=2)
-            print(f"Results written to {request.outputPath}")
+            print(f"Results written to {request.outputPath}.")
         except Exception as e:
-            print(f"Failed to write output file: {e}")
+            print(f"Failed to write output file: {e}.")
 
         return result
 

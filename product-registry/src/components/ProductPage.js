@@ -37,7 +37,7 @@ export default function ProductPage({ products }) {
         ) : images?.length > 0 ? (
           <img src={images[0]} alt={name} className="image" />
         ) : (
-          <div className="image placeholder">No media available</div>
+          <div className="image placeholder">No media available.</div>
         )}
       </div>
 
@@ -59,7 +59,7 @@ export default function ProductPage({ products }) {
 
       {key_features?.length > 0 && (
         <section>
-          <h2>Key features</h2>
+          <h2>Key Features</h2>
           <ul>
             {key_features.map((f, i) => (
               <li key={i}>{f}</li>
