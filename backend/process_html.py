@@ -1,4 +1,4 @@
-# Local
+# Local/Native Imports
 import sys
 from pathlib import Path
 sys.path.insert(0, str(Path(__file__).parent.parent))
@@ -9,19 +9,20 @@ from backend.html_utils import (
     extract_text_content,
     get_html_summary
 )
-from models import Product, ProductExtractionRequest, ProductList
+from models import ProductExtractionRequest, ProductList
 from backend.prompts import LLM_PROMPT
 
-# Third-Party
+# Third-Party Imports
 from dotenv import load_dotenv
 from fastapi import FastAPI, HTTPException
 from fastapi.responses import JSONResponse
+import json
 import os
 
 
 # To run this back-end process, run the following command:
 # "uv sync"
-# "uv run uvicorn process_html:app --reload"
+# "uv run uvicorn backend.process_html:app --reload"
 load_dotenv()
 
 app = FastAPI()
@@ -47,41 +48,28 @@ def _clean_html_for_ai(html_content: str, source_name: str = "") -> str:
         {text_content[:3000]}
 
         MEDIA ASSETS:
-        - Images: {len(media['images'])} found
-        - Videos: {len(media['videos'])} found
+        Images:
+        {chr(10).join(media['images'][:50])}
+
+        Videos:
+        {chr(10).join(media['videos'][:20])}
         """
     
     return structured_content
 
 
-def _combine_html_files(html_files_dict: dict) -> str:
-    """
-    This combines multiple cleaned HTML files into a single prompt-friendly string.
-    It accepts a dict of {source_name: html_content} pairs as its argument.
-    """
-    # We separate the cleaned HTML files with 80 equality signs so that
-    # we can cleanly distinguish them from one another.
-    combined = "PRODUCT CATALOG DATA\n" + "=" * 80 + "\n\n"
-    
-    for source_name, html_content in html_files_dict.items():
-        cleaned = _clean_html_for_ai(html_content, source_name)
-        combined += cleaned + "\n\n"
-    
-    return combined
-
-
-# curl -X POST http://localhost:8000/products/ -H "Content-Type: application/json" -d '{"paths": ["data/rawData/ace.html", "data/rawData/article.html", "adaysmarch.html", "llbean.html", "nike.html"]}'
+# curl -X POST http://localhost:8000/products/ -H "Content-Type: application/json" -d '{"filePaths": ["data/rawData/ace.html", "data/rawData/adaysmarch.html", "data/rawData/article.html", "data/rawData/llbean.html", "data/rawData/nike.html"], "outputPath": "data/extracted_products.json"}'
 @app.post("/products/")
 async def extract_products(request: ProductExtractionRequest) -> dict:
     try:
-        if not request.paths:
+        if not request.filePaths:
             raise HTTPException(status_code=400, detail="No file paths provided.")
 
         all_products = []
         processed_files = 0
         failures = []
 
-        for path_str in request.paths:
+        for path_str in request.filePaths:
             path = Path(path_str)
 
             if not path.exists():
@@ -117,14 +105,26 @@ async def extract_products(request: ProductExtractionRequest) -> dict:
                 print(f"Failed {path.name}: {e}")
                 failures.append({"path": path_str, "error": str(e)})
 
-        return {
+        result = {
             "status": "success",
-            "files_requested": len(request.paths),
+            "files_requested": len(request.filePaths),
             "files_processed": processed_files,
             "product_count": len(all_products),
             "products": [p.dict() for p in all_products],
             "failures": failures,
         }
+
+        # Write results to the output file:
+        try:
+            output_path = Path(request.outputPath)
+            output_path.parent.mkdir(parents=True, exist_ok=True)
+            with open(output_path, "w") as f:
+                json.dump(result, f, indent=2)
+            print(f"Results written to {request.outputPath}")
+        except Exception as e:
+            print(f"Failed to write output file: {e}")
+
+        return result
 
     except HTTPException:
         raise

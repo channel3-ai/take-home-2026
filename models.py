@@ -49,6 +49,7 @@ class Variant(BaseModel):
     # For example, if key is equal to "fit," then 
     # this could be "slim" or "traditional."
     value: str | None = None
+    units: str | None = None
 
     # "Authentic" match-day football kits cost nearly twice
     # as much as replicas, for example, so pricing the Variant

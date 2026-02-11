@@ -1,0 +1,316 @@
+{
+  "status": "success",
+  "files_requested": 5,
+  "files_processed": 5,
+  "product_count": 5,
+  "products": [
+    {
+      "name": "DeWalt 20V MAX 1/2 in. Brushed Cordless Compact Drill Kit (Battery & Charger)",
+      "price": {
+        "price": 129.0,
+        "currency": "USD",
+        "compare_at_price": 159.0
+      },
+      "description": "The DCD771C2 20V MAX lithium ion compact drill/driver kit is lightweight and compact for working in tight spaces for long periods of time. High speed transmission delivers 2 speed variations allowing users to choose the level of performance needed for various applications. Kit includes battery and charger. Mfr# DCD771C2.",
+      "key_features": [
+        "20V MAX lithium ion compact drill/driver",
+        "Lightweight and compact for tight spaces",
+        "High speed transmission with 2 speed settings",
+        "1/2 in chuck size",
+        "Kit includes battery and charger"
+      ],
+      "image_urls": [
+        "https://cdn-tp6.mozu.com/24645-37138/cms/37138/files/f7b42b30-cf5a-4829-be02-76bf93727867?quality=60&max=480&_mzcb=_1767877756410",
+        "https://cdn-tp6.mozu.com/24645-37138/cms/37138/files/f7b42b30-cf5a-4829-be02-76bf93727867?max=100&_mzcb=_1767877756410",
+        "https://cdn-tp6.mozu.com/24645-37138/cms/37138/files/b9e63a53-01c5-44c6-97e2-9c78a7ed2a10?max=100&_mzcb=_1767877756410",
+        "https://cdn-tp6.mozu.com/24645-37138/cms/37138/files/373f3cb5-5ecf-4a57-b7d6-510d8698e977?max=100&_mzcb=_1767877756410"
+      ],
+      "video_url": null,
+      "category": {
+        "name": "Hardware > Tools > Drills"
+      },
+      "brand": "DeWalt",
+      "colors": [],
+      "variants": []
+    },
+    {
+      "name": "Miller Cotton Lyocell Trousers",
+      "price": {
+        "price": 170.0,
+        "currency": "USD",
+        "compare_at_price": null
+      },
+      "description": "Trousers made of 65% TENCEL Lyocell and 35% cotton. Features one visible button and one inside button, a topstitched waistband, side pockets, and two back pockets with buttoning. Made in Portugal. Care: wash at 30C with similar colors, dry on hanger, do not tumble dry.",
+      "key_features": [
+        "65% TENCEL lyocell, 35% cotton",
+        "One visible button and one inside button",
+        "Topstitched waistband",
+        "Side pockets",
+        "Two back pockets with buttoning"
+      ],
+      "image_urls": [
+        "https://adaysmarch.centracdn.net/client/dynamic/images/8521_8e75528d95-102805-50_miller_cotton_lyocell_trousers_iron0822-max.jpg",
+        "https://adaysmarch.centracdn.net/client/dynamic/images/8521_8e75528d95-102805-50_miller_cotton_lyocell_trousers_iron0822-full.jpg"
+      ],
+      "video_url": null,
+      "category": {
+        "name": "Apparel & Accessories > Clothing"
+      },
+      "brand": "A Day's March",
+      "colors": [
+        "iron"
+      ],
+      "variants": [
+        {
+          "key": "size",
+          "value": "44",
+          "units": null,
+          "price": {
+            "price": 170.0,
+            "currency": "USD",
+            "compare_at_price": null
+          },
+          "image_urls": []
+        },
+        {
+          "key": "size",
+          "value": "46",
+          "units": null,
+          "price": {
+            "price": 170.0,
+            "currency": "USD",
+            "compare_at_price": null
+          },
+          "image_urls": []
+        },
+        {
+          "key": "size",
+          "value": "48",
+          "units": null,
+          "price": {
+            "price": 170.0,
+            "currency": "USD",
+            "compare_at_price": null
+          },
+          "image_urls": []
+        },
+        {
+          "key": "size",
+          "value": "50",
+          "units": null,
+          "price": {
+            "price": 170.0,
+            "currency": "USD",
+            "compare_at_price": null
+          },
+          "image_urls": []
+        },
+        {
+          "key": "size",
+          "value": "52",
+          "units": null,
+          "price": {
+            "price": 170.0,
+            "currency": "USD",
+            "compare_at_price": null
+          },
+          "image_urls": []
+        },
+        {
+          "key": "size",
+          "value": "54",
+          "units": null,
+          "price": {
+            "price": 170.0,
+            "currency": "USD",
+            "compare_at_price": null
+          },
+          "image_urls": []
+        }
+      ]
+    },
+    {
+      "name": "Pilar Floor Lamp - White Terrazzo",
+      "price": {
+        "price": 349.0,
+        "currency": "USD",
+        "compare_at_price": null
+      },
+      "description": "The Pilar Floor Lamp - White Terrazzo features a tall terrazzo base and a cone fabric shade with a black fabric cord. It stands 55 in tall with a 21.5 in wide shade, includes an E26 7W LED bulb, and brings a Scandinavian look to any room. Color: White Terrazzo. Cord length: 9 ft. Weight: 42 lb. Materials: terrazzo, fabric, steel, PVC.",
+      "key_features": [
+        "Terrazzo base with fabric shade",
+        "E26 7W LED bulb included",
+        "55 in H x 21.5 in W x 21.5 in D",
+        "9 ft black fabric cord",
+        "Scandinavian style design"
+      ],
+      "image_urls": [
+        "https://cdn-images.article.com/products/SKU25289/2890x1500/image154290.jpg?w=320&q=80&fit=max",
+        "https://cdn-images.article.com/products/SKU25289/2890x1500/image154289.jpg?w=320&q=80&fit=max",
+        "https://cdn-images.article.com/products/SKU25289/2890x1500/image169693.jpg?w=320&q=80&fit=max",
+        "https://cdn-images.article.com/products/SKU25289/2890x1500/image154288.jpg?w=320&q=80&fit=max",
+        "https://cdn-images.article.com/products/SKU25289/2890x1500/image154286.jpg?w=320&q=80&fit=max",
+        "https://cdn-images.article.com/products/SKU25289/2890x1500/image154287.jpg?w=320&q=80&fit=max",
+        "https://cdn-images.article.com/products/SKU25289/2890x1500/image154291.jpg?w=320&q=80&fit=max",
+        "https://cdn-images.article.com/products/SKU25289/2890x1500/image154292.jpg?w=320&q=80&fit=max",
+        "https://cdn-images.article.com/products/SKU25289/2890x1500/image154293.jpg?w=320&q=80&fit=max",
+        "https://cdn-images.article.com/products/SKU25289/2890x1500/image154295.jpg?w=320&q=80&fit=max",
+        "https://cdn-images.article.com/products/SKU25289/2890x1500/image154294.jpg?w=320&q=80&fit=max",
+        "https://cdn-images.article.com/products/SKU25289/2890x1500/image154296.jpg?w=320&q=80&fit=max",
+        "https://cdn-images.article.com/products/SKU25289/2890x1500/image154290.jpg?w=1920&q=80&fm=webp&fit=max",
+        "https://cdn-images.article.com/products/SKU25289/2890x1500/image154289.jpg?w=1920&q=80&fm=webp&fit=max"
+      ],
+      "video_url": null,
+      "category": {
+        "name": "Home & Garden > Lighting > Lamps"
+      },
+      "brand": "Article",
+      "colors": [
+        "white terrazzo"
+      ],
+      "variants": []
+    },
+    {
+      "name": "Men's Carefree Unshrinkable Tee, Traditional Fit, Henley",
+      "price": {
+        "price": 29.95,
+        "currency": "USD",
+        "compare_at_price": null
+      },
+      "description": "Resilient men's henley tee made of soft, 100% jersey-knit cotton that resists wrinkles, shrinking, fading and pilling. Traditional Fit is relaxed through the chest, sleeve and waist. Double ring-spun fabric keeps its shape wash after wash, with ribbed trim of cotton/elastane for recovery. Machine wash and dry; fabric gets softer over time.",
+      "key_features": [
+        "100% jersey-knit cotton resists wrinkles, shrinking, fading and pilling",
+        "Traditional Fit: relaxed through chest, sleeve and waist",
+        "Double ring-spun fabric keeps shape wash after wash",
+        "Ribbed trim with cotton/elastane for added recovery",
+        "Machine washable; softens with repeated washing"
+      ],
+      "image_urls": [
+        "https://cdni.llbean.net/is/image/wim/224626_1176_41?hei=1095&wid=950&resMode=sharp2&defaultImage=llbprod/224626_0_44",
+        "https://cdni.llbean.net/is/image/wim/224626_1176_44?hei=1095&wid=950&resMode=sharp2&defaultImage=llbprod/224626_0_44",
+        "https://cdni.llbean.net/is/image/wim/224626_1176_45?hei=1095&wid=950&resMode=sharp2&defaultImage=llbprod/224626_0_44",
+        "https://cdni.llbean.net/is/image/wim/224626_1176_46?hei=1095&wid=950&resMode=sharp2&defaultImage=llbprod/224626_0_44",
+        "https://cdni.llbean.net/is/image/wim/224626_1176_47?hei=1095&wid=950&resMode=sharp2&defaultImage=llbprod/224626_0_44",
+        "https://cdni.llbean.net/is/image/wim/224626_1176_48?hei=1095&wid=950&resMode=sharp2&defaultImage=llbprod/224626_0_44"
+      ],
+      "video_url": null,
+      "category": {
+        "name": "Apparel & Accessories > Clothing"
+      },
+      "brand": "L.L.Bean",
+      "colors": [
+        "charcoal heather"
+      ],
+      "variants": [
+        {
+          "key": "size",
+          "value": "Small",
+          "units": null,
+          "price": {
+            "price": 29.95,
+            "currency": "USD",
+            "compare_at_price": null
+          },
+          "image_urls": []
+        },
+        {
+          "key": "size",
+          "value": "Medium",
+          "units": null,
+          "price": {
+            "price": 29.95,
+            "currency": "USD",
+            "compare_at_price": null
+          },
+          "image_urls": []
+        },
+        {
+          "key": "size",
+          "value": "Large",
+          "units": null,
+          "price": {
+            "price": 29.95,
+            "currency": "USD",
+            "compare_at_price": null
+          },
+          "image_urls": []
+        },
+        {
+          "key": "size",
+          "value": "X-Large",
+          "units": null,
+          "price": {
+            "price": 29.95,
+            "currency": "USD",
+            "compare_at_price": null
+          },
+          "image_urls": []
+        },
+        {
+          "key": "size",
+          "value": "XX-Large",
+          "units": null,
+          "price": {
+            "price": 29.95,
+            "currency": "USD",
+            "compare_at_price": null
+          },
+          "image_urls": []
+        },
+        {
+          "key": "size",
+          "value": "XXX-Large",
+          "units": null,
+          "price": {
+            "price": 29.95,
+            "currency": "USD",
+            "compare_at_price": null
+          },
+          "image_urls": []
+        }
+      ]
+    },
+    {
+      "name": "Nike Air Force 1 '07 LV8 Men's Shoes",
+      "price": {
+        "price": 76.99,
+        "currency": "GBP",
+        "compare_at_price": 109.99
+      },
+      "description": "Comfortable, durable and timeless - it is number one for a reason. Classic 1980s construction, a subtle platform and a blend of smooth synthetic and peached leathers create iconic streetwear style. Colour shown: Phantom/College Grey/Team Red/Black. Style: IO2077-030.",
+      "key_features": [
+        "Leather upper with perforated toe box is breathable and comfortable",
+        "Nike Air unit provides lightweight cushioning",
+        "Rubber outsole with classic pivot circles delivers traction and durability"
+      ],
+      "image_urls": [
+        "https://static.nike.com/a/images/t_web_pdp_535_v2/f_auto,u_9ddf04c7-2a9a-4d76-add1-d15af8f0263d,c_scale,fl_relative,w_1.0,h_1.0,fl_layer_apply/6a4d2051-1fee-4ce0-aba7-5de42641dae2/NIKE+AIR+FORCE+1+%2707+LV8.png",
+        "https://static.nike.com/a/images/t_web_pdp_936_v2/f_auto,u_9ddf04c7-2a9a-4d76-add1-d15af8f0263d,c_scale,fl_relative,w_1.0,h_1.0,fl_layer_apply/6a4d2051-1fee-4ce0-aba7-5de42641dae2/NIKE+AIR+FORCE+1+%2707+LV8.png",
+        "https://static.nike.com/a/images/t_PDP_144_v1/f_auto,q_auto:eco/6888cdd1-346f-4136-a14b-7412f920419c/NIKE+AIR+FORCE+1+%2707+LV8.png",
+        "https://static.nike.com/a/images/t_PDP_144_v1/f_auto,q_auto:eco/d6d2266d-0fa9-4f34-bf74-6528c9a0945f/NIKE+AIR+FORCE+1+%2707+LV8.png",
+        "https://static.nike.com/a/images/t_PDP_144_v1/f_auto,q_auto:eco/c90f7949-b685-485e-8602-23f1d079cd3a/AIR+FORCE+1+%2707+WB.png",
+        "https://static.nike.com/a/images/t_PDP_144_v1/f_auto,q_auto:eco/057c2bbd-d065-44eb-913f-51dd4f98d680/AIR+FORCE+1+%2707.png",
+        "https://static.nike.com/a/images/t_PDP_144_v1/f_auto,q_auto:eco/144d0759-690b-42d5-a9c7-9bc9f36e819e/AIR+FORCE+1+%2707+WB.png",
+        "https://static.nike.com/a/images/t_PDP_144_v1/f_auto,q_auto:eco/a42a5d53-2f99-4e78-a081-9d07a2d0774a/AIR+FORCE+1+%2707.png",
+        "https://static.nike.com/a/images/t_PDP_144_v1/f_auto,q_auto:eco/9fffd0e4-2c1a-4963-8d69-e8582131797b/AIR+FORCE+1+%2707+WB.png",
+        "https://static.nike.com/a/images/t_PDP_144_v1/f_auto,q_auto:eco/5daa00d9-afae-4125-a95c-fc71923b81c3/AIR+FORCE+1+%2707.png",
+        "https://static.nike.com/a/images/t_PDP_144_v1/f_auto,q_auto:eco/4f37fca8-6bce-43e7-ad07-f57ae3c13142/AIR+FORCE+1+%2707.png",
+        "https://static.nike.com/nike-prod-cld/images/t_PDP_144_v1/f_auto,q_auto:eco/static/en_GB-DYO/DYO.png",
+        "https://static.nike.com/a/images/t_PDP_1728_v1/f_auto,q_auto:eco,c_scale,w_300,u_9ddf04c7-2a9a-4d76-add1-d15af8f0263d,c_scale,fl_relative,w_1.0,h_1.0,fl_layer_apply/d6d2266d-0fa9-4f34-bf74-6528c9a0945f/NIKE+AIR+FORCE+1+%2707+LV8.png"
+      ],
+      "video_url": null,
+      "category": {
+        "name": "Apparel & Accessories"
+      },
+      "brand": "Nike",
+      "colors": [
+        "phantom",
+        "college grey",
+        "team red",
+        "black"
+      ],
+      "variants": []
+    }
+  ],
+  "failures": []
+}

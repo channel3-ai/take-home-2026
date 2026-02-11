@@ -15,11 +15,11 @@ def extract_media_links(html_content: str, base_url: str = "") -> Dict[str, List
     Extract all media links (images and videos) from HTML content.
     
     Args:
-        html_content: The HTML content as a string
-        base_url: Base URL to resolve relative URLs (optional)
+        html_content: The HTML content as a string.
+        base_url: Base URL to resolve relative URLs (optional).
         
     Returns:
-        A dictionary with 'images' and 'videos' keys containing lists of URLs
+        A dictionary with 'images' and 'videos' keys containing lists of URLs.
         
     Example:
         >>> media = extract_media_links(html_text, "https://nike.com")
@@ -33,21 +33,21 @@ def extract_media_links(html_content: str, base_url: str = "") -> Dict[str, List
         'videos': []
     }
     
-    # Extract image URLs
+    # Extract image URLs:
     for img in soup.find_all('img'):
         src = img.get('src')
         if src:
-            # Resolve relative URLs
+            # Resolve relative URLs:
             if base_url:
                 src = urljoin(base_url, src)
             media_links['images'].append(src)
     
-    # Extract images from picture elements
+    # Extract images from picture elements:
     for picture in soup.find_all('picture'):
         for source in picture.find_all('source'):
             srcset = source.get('srcset')
             if srcset:
-                # srcset can have multiple URLs, extract them
+                # srcset can have multiple URLs, so we extract them:
                 urls = [url.strip().split()[0] for url in srcset.split(',')]
                 for url in urls:
                     if base_url:
@@ -55,16 +55,16 @@ def extract_media_links(html_content: str, base_url: str = "") -> Dict[str, List
                     if url not in media_links['images']:
                         media_links['images'].append(url)
     
-    # Extract video URLs
+    # Extract video URLs:
     for video in soup.find_all('video'):
-        # Check video src attribute
+        # Check video src attribute:
         src = video.get('src')
         if src:
             if base_url:
                 src = urljoin(base_url, src)
             media_links['videos'].append(src)
         
-        # Check source elements within video
+        # Check source elements within video:
         for source in video.find_all('source'):
             src = source.get('src')
             if src:
@@ -73,9 +73,9 @@ def extract_media_links(html_content: str, base_url: str = "") -> Dict[str, List
                 if src not in media_links['videos']:
                     media_links['videos'].append(src)
     
-    # Extract from data attributes and background images
+    # Extract from data attributes and background images:
     for element in soup.find_all(True):
-        # Check data attributes for image URLs
+        # Check data attributes for image URLs:
         for attr_name, attr_value in element.attrs.items():
             if attr_value and isinstance(attr_value, str):
                 if 'image' in attr_name.lower() or 'src' in attr_name.lower():
@@ -98,11 +98,11 @@ def remove_html_noise(html_content: str, preserve_text: bool = True) -> str:
     analytics code, and unnecessary attributes.
     
     Args:
-        html_content: The HTML content as a string
-        preserve_text: If True, extracts and returns all text content (default: True)
+        html_content: The HTML content as a string.
+        preserve_text: If True, extracts and returns all text content (default: True).
         
     Returns:
-        Cleaned HTML content as a string
+        Cleaned HTML content as a string.
         
     Example:
         >>> cleaned_html = remove_html_noise(html_text)
@@ -110,40 +110,37 @@ def remove_html_noise(html_content: str, preserve_text: bool = True) -> str:
     """
     soup = BeautifulSoup(html_content, 'html.parser')
     
-    # Remove script tags
+    # Remove script tags:
     for script in soup.find_all('script'):
         script.decompose()
     
-    # Remove style tags
+    # Remove style tags:
     for style in soup.find_all('style'):
         style.decompose()
     
-    # Remove comments
+    # Remove comments:
     for comment in soup.find_all(string=lambda text: isinstance(text, str) and text.strip().startswith('<!--')):
         comment.extract()
     
-    # Remove noscript tags
+    # Remove noscript tags:
     for noscript in soup.find_all('noscript'):
         noscript.decompose()
     
-    # Remove iframe tags (except those with important content)
+    # Remove iframe tags (except those with important content):
     for iframe in soup.find_all('iframe'):
         iframe.decompose()
     
-    # Keep only useful meta tags
+    # Keep only useful meta tags:
     for meta in soup.find_all('meta'):
         name = meta.get('name', '').lower()
         property_attr = meta.get('property', '').lower()
         
-        # Remove most meta tags except description and keywords
+        # Remove most meta tags except description and keywords:
         if name not in ['description', 'keywords'] and property_attr not in ['og:description', 'og:title']:
             meta.decompose()
     
-    # Clean up unnecessary attributes from tags
-    attributes_to_remove = ['class', 'id', 'style', 'data-*', 'onclick', 'onload', 'onerror']
-    
     for tag in soup.find_all(True):
-        # Remove event handlers
+        # Remove event handlers:
         for attr in list(tag.attrs.keys()):
             if attr.startswith('on') or attr.startswith('data-') or attr in ['class', 'id', 'style']:
                 del tag[attr]
@@ -168,17 +165,17 @@ def extract_text_content(html_content: str, remove_extra_whitespace: bool = True
     """
     soup = BeautifulSoup(html_content, 'html.parser')
     
-    # Remove script and style tags before extracting text
+    # Remove script and style tags before extracting text:
     for script in soup.find_all(['script', 'style']):
         script.decompose()
     
-    # Get text content
+    # Get text content:
     text = soup.get_text()
     
     if remove_extra_whitespace:
-        # Replace multiple spaces with single space
+        # Replace multiple spaces with single space:
         text = re.sub(r'\s+', ' ', text)
-        # Remove leading/trailing whitespace from lines
+        # Remove leading/trailing whitespace from lines:
         lines = [line.strip() for line in text.split('\n') if line.strip()]
         text = '\n'.join(lines)
     
@@ -188,16 +185,16 @@ def extract_text_content(html_content: str, remove_extra_whitespace: bool = True
 def create_cleaned_html(html_content: str, include_media_info: bool = False, 
                        base_url: str = "") -> Tuple[str, Dict]:
     """
-    Create a comprehensive cleaned version of HTML with optional media information.
+    Create a comprehensive cleaned version of HTML with optional media information..
     
     Args:
-        html_content: The HTML content as a string
-        include_media_info: If True, includes extracted media links (default: False)
-        base_url: Base URL to resolve relative URLs
+        html_content: The HTML content as a string.
+        include_media_info: If True, includes extracted media links (default: False).
+        base_url: Base URL to resolve relative URLs.
         
     Returns:
         A tuple of (cleaned_html, metadata_dict) where metadata_dict contains
-        'media' key if include_media_info is True
+        'media' key if include_media_info is True.
         
     Example:
         >>> cleaned_html, metadata = create_cleaned_html(html_text, include_media_info=True)
@@ -218,10 +215,10 @@ def get_html_summary(html_content: str) -> Dict[str, any]:
     Generate a summary of HTML content including title, description, media count, etc.
     
     Args:
-        html_content: The HTML content as a string
+        html_content: The HTML content as a string.
         
     Returns:
-        A dictionary containing summary information
+        A dictionary containing summary information.
         
     Example:
         >>> summary = get_html_summary(html_text)
@@ -239,7 +236,7 @@ def get_html_summary(html_content: str) -> Dict[str, any]:
         'text_length': len(extract_text_content(html_content)),
     }
     
-    # Get meta description
+    # Get meta description:
     meta_description = soup.find('meta', attrs={'name': 'description'})
     if meta_description:
         summary['description'] = meta_description.get('content', '')

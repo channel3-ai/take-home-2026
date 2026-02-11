@@ -1,0 +1,291 @@
+{
+  "status": "success",
+  "files_requested": 5,
+  "files_processed": 5,
+  "product_count": 5,
+  "products": [
+    {
+      "name": "DeWalt 20V MAX 1/2 in. Brushed Cordless Compact Drill Kit (Battery & Charger) Mfr# DCD771C2",
+      "price": {
+        "price": 129.0,
+        "currency": "USD",
+        "compare_at_price": 159.0
+      },
+      "description": "The DeWalt DCD771C2 20V MAX Lithium Ion Compact Drill/Driver Kit is lightweight and compact for working in tight spaces for extended periods. It features a high-speed transmission with two speed settings to match various applications. The kit includes a battery and charger. 1/2 in. drill/driver with a brushed motor.",
+      "key_features": [
+        "20V MAX Lithium Ion power",
+        "Lightweight, compact design for tight spaces",
+        "High-speed transmission with 2 speed settings",
+        "Includes battery and charger",
+        "1/2 in. drill/driver with brushed motor"
+      ],
+      "image_urls": [],
+      "video_url": null,
+      "category": {
+        "name": "Hardware > Tools > Drills"
+      },
+      "brand": "DeWalt",
+      "colors": [],
+      "variants": []
+    },
+    {
+      "name": "Miller Cotton Lyocell Trousers",
+      "price": {
+        "price": 170.0,
+        "currency": "USD",
+        "compare_at_price": null
+      },
+      "description": "Trousers made from 65% TENCEL Lyocell and 35% cotton with one visible button plus an inner button, a topstitched waistband, side pockets, and two back pockets with buttoning. Made in Portugal. Care: wash at 30C with similar colors, dry on hanger, do not tumble dry.",
+      "key_features": [
+        "65% TENCEL Lyocell, 35% cotton",
+        "Topstitched waistband",
+        "Side pockets",
+        "Two back pockets with buttoning",
+        "One visible button plus inner button"
+      ],
+      "image_urls": [],
+      "video_url": null,
+      "category": {
+        "name": "Apparel & Accessories > Clothing > Pants"
+      },
+      "brand": "A Day's March",
+      "colors": [
+        "iron"
+      ],
+      "variants": [
+        {
+          "key": "size",
+          "value": "44",
+          "price": {
+            "price": 170.0,
+            "currency": "USD",
+            "compare_at_price": null
+          },
+          "image_urls": []
+        },
+        {
+          "key": "size",
+          "value": "46",
+          "price": {
+            "price": 170.0,
+            "currency": "USD",
+            "compare_at_price": null
+          },
+          "image_urls": []
+        },
+        {
+          "key": "size",
+          "value": "48",
+          "price": {
+            "price": 170.0,
+            "currency": "USD",
+            "compare_at_price": null
+          },
+          "image_urls": []
+        },
+        {
+          "key": "size",
+          "value": "50",
+          "price": {
+            "price": 170.0,
+            "currency": "USD",
+            "compare_at_price": null
+          },
+          "image_urls": []
+        },
+        {
+          "key": "size",
+          "value": "52",
+          "price": {
+            "price": 170.0,
+            "currency": "USD",
+            "compare_at_price": null
+          },
+          "image_urls": []
+        },
+        {
+          "key": "size",
+          "value": "54",
+          "price": {
+            "price": 170.0,
+            "currency": "USD",
+            "compare_at_price": null
+          },
+          "image_urls": []
+        }
+      ]
+    },
+    {
+      "name": "Pilar Floor Lamp - White Terrazzo",
+      "price": {
+        "price": 349.0,
+        "currency": "USD",
+        "compare_at_price": null
+      },
+      "description": "The Pilar Floor Lamp features a tall, slender white terrazzo base and a cone, fabric-wrapped shade with a black fabric cord. It emits a warm glow and showcases Scandinavian style. General dimensions: 55 in H x 21.5 in W x 21.5 in D. Shade: 13 in H x 21.5 in diameter. Cord: 9 ft. Materials: terrazzo, fabric, steel, PVC. Includes one E26 7W LED bulb. Weight: 42 lb. Care: wipe with a clean damp cloth; avoid chemical cleaners. Some assembly required (about 10 minutes). SKU: SKU25289.",
+      "key_features": [
+        "Terrazzo base with a fabric shade",
+        "E26 7W LED bulb included",
+        "55 in tall with 9 ft cord",
+        "Scandinavian style",
+        "Color: White Terrazzo"
+      ],
+      "image_urls": [],
+      "video_url": null,
+      "category": {
+        "name": "Home & Garden > Lighting > Lamps"
+      },
+      "brand": "Article",
+      "colors": [
+        "white terrazzo"
+      ],
+      "variants": []
+    },
+    {
+      "name": "Men's Carefree Unshrinkable Tee, Traditional Fit, Henley",
+      "price": {
+        "price": 29.95,
+        "currency": "USD",
+        "compare_at_price": null
+      },
+      "description": "Resilient men's henley tee designed to keep its shape wash after wash. Traditional Fit is relaxed through the chest, sleeve and waist. Made from 100% jersey-knit cotton with ribbed trim for comfort. Fabric resists wrinkles, shrinking, fading and pilling, and becomes softer with repeated washing. Machine wash and dry.",
+      "key_features": [
+        "Traditional Fit, relaxed through chest, sleeve and waist",
+        "100% jersey-knit cotton with ribbed trim (90% cotton/10% Lycra elastane)",
+        "Resists wrinkles, shrinking, fading and pilling",
+        "Double ring-spun fabric for durability and shape retention",
+        "Gets softer with every wash; machine wash and dry"
+      ],
+      "image_urls": [],
+      "video_url": null,
+      "category": {
+        "name": "Apparel & Accessories > Clothing > Shirts & Tops"
+      },
+      "brand": "L.L.Bean",
+      "colors": [
+        "charcoal heather"
+      ],
+      "variants": [
+        {
+          "key": "size",
+          "value": "Small",
+          "price": {
+            "price": 29.95,
+            "currency": "USD",
+            "compare_at_price": null
+          },
+          "image_urls": []
+        },
+        {
+          "key": "size",
+          "value": "Medium",
+          "price": {
+            "price": 29.95,
+            "currency": "USD",
+            "compare_at_price": null
+          },
+          "image_urls": []
+        },
+        {
+          "key": "size",
+          "value": "Large",
+          "price": {
+            "price": 29.95,
+            "currency": "USD",
+            "compare_at_price": null
+          },
+          "image_urls": []
+        },
+        {
+          "key": "size",
+          "value": "X-Large",
+          "price": {
+            "price": 29.95,
+            "currency": "USD",
+            "compare_at_price": null
+          },
+          "image_urls": []
+        },
+        {
+          "key": "size",
+          "value": "XX-Large",
+          "price": {
+            "price": 29.95,
+            "currency": "USD",
+            "compare_at_price": null
+          },
+          "image_urls": []
+        },
+        {
+          "key": "size",
+          "value": "XXX-Large",
+          "price": {
+            "price": 29.95,
+            "currency": "USD",
+            "compare_at_price": null
+          },
+          "image_urls": []
+        },
+        {
+          "key": "fit",
+          "value": "Regular",
+          "price": {
+            "price": 29.95,
+            "currency": "USD",
+            "compare_at_price": null
+          },
+          "image_urls": []
+        },
+        {
+          "key": "fit",
+          "value": "Tall",
+          "price": {
+            "price": 29.95,
+            "currency": "USD",
+            "compare_at_price": null
+          },
+          "image_urls": []
+        },
+        {
+          "key": "color",
+          "value": "Charcoal Heather",
+          "price": {
+            "price": 29.95,
+            "currency": "USD",
+            "compare_at_price": null
+          },
+          "image_urls": []
+        }
+      ]
+    },
+    {
+      "name": "Nike Air Force 1 '07 LV8 Men's Shoes",
+      "price": {
+        "price": 76.99,
+        "currency": "GBP",
+        "compare_at_price": 109.99
+      },
+      "description": "Comfortable, durable and timeless - it is number one for a reason. Classic 80s construction, a subtle platform, and a blend of smooth synthetic and peached leathers combine for iconic streetwear style. Colour shown: Phantom/College Grey/Team Red/Black. Style: IO2077-030. Leather upper with perforated toe box for breathability and comfort. Nike Air unit provides lightweight cushioning. Rubber outsole with classic pivot circles for traction and durability.",
+      "key_features": [
+        "Breathable leather upper with perforated toe box",
+        "Nike Air cushioning for lightweight comfort",
+        "Durable rubber outsole with classic pivot circles",
+        "Classic 80s-inspired construction with subtle platform"
+      ],
+      "image_urls": [],
+      "video_url": null,
+      "category": {
+        "name": "Apparel & Accessories > Shoes"
+      },
+      "brand": "Nike",
+      "colors": [
+        "phantom",
+        "college grey",
+        "team red",
+        "black"
+      ],
+      "variants": []
+    }
+  ],
+  "failures": []
+}
