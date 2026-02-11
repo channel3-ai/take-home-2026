@@ -1,7 +1,7 @@
 import requests
 import json
 
-# Test the /products/ endpoint
+# Test the sole /products/ endpoint.
 url = "http://localhost:8000/products/"
 
 print("Sending POST request to /products/ endpoint...")

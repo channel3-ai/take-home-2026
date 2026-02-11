@@ -65,13 +65,13 @@ def test_remove_noise():
     
     cleaned = remove_html_noise(html)
     
-    # Check that noise was removed
+    # Check that noise was removed.
     assert '<script>' not in cleaned, "Scripts should be removed"
     assert '<style>' not in cleaned, "Styles should be removed"
     assert '<!--' not in cleaned, "Comments should be removed"
     assert 'onclick' not in cleaned, "Event handlers should be removed"
     
-    # Check that content is preserved
+    # Check that content is preserved.
     assert 'Important content' in cleaned, "Content should be preserved"
     
     print("  ✓ Scripts removed")
@@ -191,7 +191,7 @@ def test_with_real_file():
     try:
         html = html_file.read_text(encoding="utf-8")
         
-        # Test each function
+        # Test each function.
         media = extract_media_links(html, base_url="https://www.nike.com")
         summary = get_html_summary(html)
         text = extract_text_content(html)

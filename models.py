@@ -1,4 +1,3 @@
-from typing import Any
 from pathlib import Path
 from pydantic import BaseModel, field_validator
 
@@ -13,8 +12,12 @@ if CATEGORIES_FILE.exists():
             if line and not line.startswith("#"):
                 VALID_CATEGORIES.add(line)
 
+
 class ProductExtractionRequest(BaseModel):
-    paths: list[str]
+    # filePaths is a list of the paths to the HTML files that we'd like to process.
+    # outputPath is the destination to which we write the processed output.
+    filePaths: list[str]
+    outputPath: str
 
 # This class represents a category from Google's Product Taxonomy:
 # https://www.google.com/basepages/producttype/taxonomy.en-US.txt
@@ -27,25 +30,32 @@ class Category(BaseModel):
         if v not in VALID_CATEGORIES:
             raise ValueError(f"Category '{v}' is not a valid category in categories.txt.")
         return v
-    
-class Variant(BaseModel):
-    # The idea is that this is simply a list of key-value pairs.
-    # We want to gather as much information as possible from the HTML
-    # pages. Given that websites differ in the amount of product information
-    # that they expose via their HTML code, I'm intentionally making this
-    # "schemaless" so that we can add distinguishing factors as we are 
-    # able to do so.
-    configurations: dict[str, str] | None = None
 
 class Price(BaseModel):
     price: float
     currency: str
 
     # If a product is on sale, then compare_at_price represents 
-    # the original price.
+    # its original price.
     compare_at_price: float | None = None
 
-# This is the final product schema that I need to output. 
+class Variant(BaseModel):
+    # T-shirts, for example, differ by colour, fit (e.g., traditional vs. slim),
+    # size, etc. Power drills, however, are mass-produced products
+    # that do not differ from one another. Thus, their product pages
+    # would not (likely) yield any Variants.
+    key: str | None = None
+
+    # For example, if key is equal to "fit," then 
+    # this could be "slim" or "traditional."
+    value: str | None = None
+
+    # "Authentic" match-day football kits cost nearly twice
+    # as much as replicas, for example, so pricing the Variant
+    # is important.
+    price: Price
+    image_urls: list[str]
+
 class Product(BaseModel):
     name: str
     price: Price
