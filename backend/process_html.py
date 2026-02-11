@@ -16,6 +16,7 @@ from backend.prompts import LLM_PROMPT
 from dotenv import load_dotenv
 from fastapi import FastAPI, HTTPException
 from fastapi.responses import JSONResponse
+from fastapi.middleware.cors import CORSMiddleware
 import json
 import os
 
@@ -26,6 +27,16 @@ import os
 load_dotenv()
 
 app = FastAPI()
+
+# This allows us to communicate with our 
+# frontend code.
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 api_key: str = os.environ.get("OPEN_ROUTER_API_KEY")
 
@@ -128,5 +139,28 @@ async def extract_products(request: ProductExtractionRequest) -> dict:
 
     except HTTPException:
         raise
+    except Exception as e:
+        return JSONResponse({"error": str(e), "status": "error"}, status_code=500)
+
+
+@app.get("/products/")
+async def get_products() -> dict:
+    """
+    Retrieve the extracted products from the JSON file.
+    """
+    try:
+        products_file = Path("data/extracted_products.json")
+        
+        if not products_file.exists():
+            return {
+                "status": "success",
+                "products": [],
+                "message": "No products file found yet. Run the extraction endpoint first."
+            }
+        
+        with open(products_file, "r") as f:
+            data = json.load(f)
+        
+        return data
     except Exception as e:
         return JSONResponse({"error": str(e), "status": "error"}, status_code=500)
