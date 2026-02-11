@@ -5,6 +5,7 @@
 To run the backend service, please run the following commands:
 
 ```
+cd backend
 uv sync
 uv run uvicorn backend.process_html:app --reload
 ```
