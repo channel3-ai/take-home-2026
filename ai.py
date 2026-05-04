@@ -24,7 +24,6 @@ MODEL_PRICES: dict[str, dict[str, float]] = {
     "openai/gpt-5": {"input": 1.25, "output": 10.00},
     "openai/gpt-5-mini": {"input": 0.25, "output": 2.00},
     "openai/gpt-5-nano": {"input": 0.05, "output": 0.40},
-    # Feel free to add more models here
 }
 
 T = TypeVar("T", bound=BaseModel)
@@ -40,15 +39,15 @@ def _get_client() -> AsyncOpenAI:
 
 
 def _log_usage(response) -> None:
-    """Log token usage and cost extrapolation for 1M queries."""
+    """Log token usage and cost extrapolations for 1M and 10M queries."""
     usage = getattr(response, "usage", None)
     if usage is None:
         logger.warning("No usage data in response")
         return
 
     model = getattr(response, "model", "unknown")
-    input_tokens = getattr(usage, "input_tokens", 0)
-    output_tokens = getattr(usage, "output_tokens", 0)
+    input_tokens = getattr(usage, "input_tokens", 0) or getattr(usage, "prompt_tokens", 0)
+    output_tokens = getattr(usage, "output_tokens", 0) or getattr(usage, "completion_tokens", 0)
 
     # Handle reasoning tokens (may be in output_tokens_details)
     reasoning_tokens = 0
@@ -56,18 +55,15 @@ def _log_usage(response) -> None:
     if output_details:
         reasoning_tokens = getattr(output_details, "reasoning_tokens", 0) or 0
 
-    # Get prices (default to 0 if model unknown)
     prices = MODEL_PRICES.get(model, {"input": 0, "output": 0})
     input_price = prices["input"]
-    output_price = prices["output"]  # Also used for reasoning
+    output_price = prices["output"]
 
-    # Calculate cost for this single query
     single_input_cost = (input_tokens / 1_000_000) * input_price
     single_output_cost = (output_tokens / 1_000_000) * output_price
     single_reasoning_cost = (reasoning_tokens / 1_000_000) * output_price
     single_total = single_input_cost + single_output_cost + single_reasoning_cost
 
-    # Extrapolate to 1M queries
     million_cost = single_total * 1_000_000
 
     logger.info(
@@ -81,36 +77,31 @@ def _log_usage(response) -> None:
 
 async def responses(
     model: str,
-    input: str | list,
+    messages: str | list,
     text_format: type[T] | None = None,
     **kwargs,
 ) -> T | Any:
     """
-    Call OpenRouter responses API with automatic token usage logging.
+    Call OpenRouter with automatic token usage logging.
 
-    OpenAI Responses API: https://platform.openai.com/docs/api-reference/responses
-
-    @dev: The intention of this function is to be used as a wrapper around the OpenAI Responses API,
-    so the developer can view token usage and cost extrapolation of each query. If this
-    abstraction becomes cumbersome, you may remove it, but it is recommended to observe your token usage.
+    Pass a Pydantic class as text_format to get structured output parsed and
+    validated automatically; omit it for a raw response object.
     """
     client = _get_client()
 
     if text_format is not None:
-        # Use .parse() for Pydantic structured output
         response = await client.responses.parse(
             model=model,
-            input=input,
+            input=messages,
             text_format=text_format,
             **kwargs,
         )
         _log_usage(response)
         return response.output_parsed
     else:
-        # Use .create() for regular responses
         response = await client.responses.create(
             model=model,
-            input=input,
+            input=messages,
             **kwargs,
         )
         _log_usage(response)
